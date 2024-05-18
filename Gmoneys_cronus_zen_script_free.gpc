@@ -1,0 +1,4697 @@
+																																																																																																																																		/*
+                         _____    _____            _   _   _   _              _           _    _
+                        / ____|  / ____|          | \ | | (_) | |            | |         (_)  ( )
+                       | (___   | (___            |  \| |  _  | | __   ___   | |   __ _   _   |/   ___
+                        \___ \   \___ \           | . ` | | | | |/ /  / _ \  | |  / _` | | |      / __|
+                        ____) |  ____) |          | |\  | | | |   <  | (_) | | | | (_| | | |      \__ \
+                       |_____/  |_____/           |_| \_| |_| |_|\_\  \___/  |_|  \__,_| |_|      |___/
+                                          ______
+                                         |______|
+												______   _                _
+											   |  ____| (_)              | |
+											   | |__     _   _ __   ___  | |_
+											   |  __|   | | | '__| / __| | __|
+											   | |      | | | |    \__ \ | |_
+											   |_|      |_| |_|    |___/  \__|
+											_____
+										   |  __ \
+										   | |__) |   ___   _ __   ___    ___    _ __
+										   |  ___/   / _ \ | '__| / __|  / _ \  | '_ \
+										   | |      |  __/ | |    \__ \ | (_) | | | | |
+										   |_|       \___| |_|    |___/  \___/  |_| |_|
+										 _____   _                       _
+										/ ____| | |                     | |
+									   | (___   | |__     ___     ___   | |_    ___   _ __
+										\___ \  | '_ \   / _ \   / _ \  | __|  / _ \ | '__|
+										____) | | | | | | (_) | | (_) | | |_  |  __/ | |
+									   |_____/  |_| |_|  \___/   \___/   \__|  \___| |_|
+											 _____                 _           _
+											/ ____|               (_)         | |
+										   | (___     ___   _ __   _   _ __   | |_
+											\___ \   / __| | '__| | | | '_ \  | __|
+											____) | | (__  | |    | | | |_) | | |_
+										   |_____/   \___| |_|    |_| | .__/   \__|
+																	  | |
+																	  |_|
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+						Note From CHI CHI / ErickCHIN :
+					- UP & DOWN to Select the value to edit.
+					- LEFT & RIGHT to increase or decrease Selected value
+					- If this does not make sense just give it a try and you will understand.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 					Credits To The Following People Below :
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- ErikChin / CHI CHI For His Mod Menu Screen & Optimized Triple Sticky Aim + Always helping me out so much
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- Sweet_Evil For His Strafe Code
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- ItzSnack For Drop shot
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- Djangokill For Chicken Mod idea, Bunny Hop, Smart Grenade
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- AnusPower for Auto Sprint code + always helping me so much
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- Crescens For Aim Sensitivity Corrections & Polar Aim Assist
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- HighWater For His Jump Peak Mod
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- Swedemafia For His Anti Drift Code, Dolphin Cancel Mod & Progressive Anti Recoil Code
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- Swizzy For Bitpacking Code
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- DoNotAtMe For His Zen Eye Colour Pulsing & Polar Aim Assist
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- TaylorDrift For DNAM Polar With Shapes, Button and Sticks Layout Array, Teaching me how to choose different modes on screen & Helping me with so much + so much more
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- Me, SS_Nikolai For Putting All This Together + Updating/Optimzing It, Coming Up With Quad Sticky Idea & Optmizing Strafe Combo To Have More Random/Natural Like Movements
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~																																								*/
+
+//--BUTTON LAYOUT ---> Customize To Your Layout <---
+	define LayOut				=		 0;	 // Choose The Number From Below That Corresponds To Your Layout
+	define Sticks				=		 0;	 // Choose The Number From Below That Corresponds To Your Stick Layout
+	define Ping_BTN				= 	PS4_UP;	 // Depending On The Game You're Playing This Button Will Vary
+	define InvertedUser			=	 FALSE;	 // Make TRUE If you play Inverted
+																																																																																																		/*
+//--------------Button Layouts----------------------Stick Layouts------------------------\\
+	 			0  = Default						0 = Default
+	 			1  = Tactical						1 = South Paw
+	 			2  = Lefty							2 = Legacy
+	 			3  = N0M4D/CHARLIE					3 = Legacy South Paw
+	 			4  = N0M4D/CHARLIE Tactical
+	 			5  = N0M4D/CHARLIE LEFTY
+	 			6  = Bumper Jumper
+	 			7  = Bumper Jumper Tactical
+	 			8  = One-Hand Gunslinger
+	 			9  = Stick & Move
+				10 = Brawler
+				11 = Beasty
+				12 = Bumper Ping
+				13 = Bumper Ping Tactical
+				14 = Default Swapped
+				15 = Tactical Swapped
+				16 = Lefty Swapped
+				17 = Nomad/Charlie Swapped
+				18 = Nomad/Charlie Tactical Swapped
+				19 = Nomad/Charlie Lefty Swapped
+				20 = Bumper Jumper Swapped
+				21 = Bumper Jumper Tactical Swapped
+				22 = One-Hand Gun Slinger Swapped
+				23 = Stick & Move Swapped
+				24 = Brawler Swapped
+				25 = Beasty Swapped
+				26 = Bumper Ping Swapped
+				27 = Bumper Ping Tactical Swapped																																																																																																																																																																																																																					*/
+
+//--Stick Drift Removal
+	define StickDriftRemoval		= TRUE;
+	define DeadZoneValue			=    7; // Any Value Under This Will Be Registered As 0 - Good For Old Controllers That Have Stick Drift - If The Value Exceeds 15 You Need A New Controller
+
+//--This is ideally for games like CW or Apex that have in-game strafe assist. If you use this on a game that doesn't I recommend setting the value to 0 or something low like 5
+	int    AlwaysOnStrength			=   2;	// Strength That Is Constantly Running With No Button Presses
+	int    AlwaysOnSpeed			=  30;	// Speed of the aim assist ( Must be a 10's value, Example: 10, 20, 30, 40, etc. )
+	define QuadStrafeAssist			=  14;	// Strafe Output With Sticky Aim Assist
+
+//--Slide Cancel Threshold and Delay
+	define CWSlideCancelDelay		= 160;	// Delay For Cold War Slide Cancel
+	define MWVGSlideCancelDelay		= 120;	// Modern Warfare / Vanguard Slide Cancel Delay
+	define BF2042SlideCancelDelay	= 140;	// Delay For Battlefield 2042 Slide Cancel
+	define MW2SlideCancelDelay		= 300;  // Delay For MW2 / Warzone 2 Slide Cancel
+	define SprintThreshold			=  75;	// Amount Of Pressure Applied To Left Stick Axis To Make Slide Cancel Activate - 75-85 Seems To Be The Sweet Spot.
+
+//--Easy Prone Button
+	define EasyProneButton			= PS4_R3;	// While Firing, Hold This Button To Go Prone
+
+//--Hair Triggers ( IF L2/LT OR R2/RT IS HELD MORE THEN 10% IT'LL REGISTER AS 100% IN THE GAME )
+	int HairTriggersToggle			= TRUE;
+
+//--If Set To TRUE Then When Your Controller Reaches Below 10% Your Controller Will Vibrate 3 Times Every 5 Seconds Until Charger Is Connected
+	define BatteryWarningToggle		= FALSE;
+
+//--Kill Switch Toggle Stuff
+	define KillSwitchToggle			=	TRUE;		// If Set To TRUE Then Be Sure To Choose A Method From Below & Button Activators As Well.
+	int    KillSwitchMethod			=	   1;		// 1 = Hold KillSwitchHoldButton + Single Tap KillSwitchDblTapButton.
+													// 2 = Hold KillSwitchHoldButton + Double Tap KillSwitchDblTapButton.
+													// 3 = Double Tap KillSwitchDblTapButton.
+													// 4 = (Drive Mode) Hold KillSwitchHoldButton + Double Tap KillSwitchDblTapButton. (Exit Drive Mode By Tapping Square/X)
+	define KillSwitchHoldButton		=	  PS4_DOWN;	// Hold This This Button To & Use KillSwitchDblTapButton To Activate & Deactivate Kill Switch.
+	define KillSwitchDblTapButton	= PS4_TRIANGLE;	// Single or Double Tap This Button While Holding KillSwitchHoldButton To Activate & Deactivate Kill Switch. !!( Make Sure You Choose Your KillSwitchMethod )!!
+
+//--Quick Toggle Stuff	
+	define QuickToggles				=	   TRUE;	// Make TRUE If You Want The Ability To Turn On The 4 Mods From Below Without Entering Menu.
+	define QuickToggleHoldButton	=    PS4_L2;	// Hold This Button & Tap One Of The Buttons Below To Activate A Quick Mod.
+	define RapidFireQT				= PS4_RIGHT;	// QuickToggleHoldButton + This Button To Activate Rapid Fire.
+	define DropShotQT				=  PS4_DOWN;	// QuickToggleHoldButton + This Button To Activate Drop Shot.
+	define BunnyHopQT				=  PS4_LEFT;	// QuickToggleHoldButton + This Button To Activate Bunny Hop.
+	define JumpShotQT				=    PS4_UP;	// QuickToggleHoldButton + This Button To Activate Jump Shot.
+																																																																																														/*
+						 _   _           _   _               _     _______
+						| \ | |         | \ | |             | |   |__   __|
+						|  \| | ___     |  \| | ___  ___  __| |      | | ___
+						| . ` |/ _ \    | . ` |/ _ \/ _ \/ _` |      | |/ _ \
+						| |\  | (_) |   | |\  |  __/  __/ (_| |      | | (_) |
+						|_| \_|\___/    |_| \_|\___|\___|\__,_|      |_|\___/
+				  _ _           _                                ______          _   _
+		 /\      | (_)         | |         /\                   |  ____|        | | | |
+	    /  \   __| |_ _   _ ___| |_       /  \   _ __  _   _    | |__ _   _ _ __| |_| |__   ___ _ __
+       / /\ \ / _` | | | | / __| __|     / /\ \ | '_ \| | | |   |  __| | | | '__| __| '_ \ / _ \ '__|
+	  / ____ \ (_| | | |_| \__ \ |_     / ____ \| | | | |_| |   | |  | |_| | |  | |_| | | |  __/ |
+	 /_/    \_\__,_| |\__,_|___/\__|   /_/    \_\_| |_|\__, |   |_|   \__,_|_|   \__|_| |_|\___|_|
+                  _/ |                                  __/ |
+                 |__/                                  |___/                                            																																																													*/
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | | | | | | | | | I | N | I | T | I | L | I | Z | A | T | I | O | N | | | | | | | | S | S | _ | N | i | k | o | l | a | i | | | | | | |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+init {
+	ControllerConfiguration(LayOut, Sticks);
+
+	Load_PVARs();
+
+	Colour = 255;
+
+	combo_run(cSS_Nikolai);
+
+	if(InvertedUser)
+		Inverted = inv(1);
+	else
+		Inverted = 1;
+
+	if(TaylorShape == SpiralAA)
+	{
+		InnerSpiral = TaylorRadius >> 1;
+		OuterSpiral = TaylorRadius;
+	}
+}
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | | | | | | | | |M|A|I|N| | |S|E|C|T|I|O|N| | | | | S | S | _ | N | i | k | o | l | a | i | | | | | | |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+*/
+main {
+	if(StickDriftRemoval)
+	{
+		applyDeadzone();
+	}
+
+	RightStickRadius	= isqrt(pow(get_ival(AimX)  , 2) + pow(get_ival(AimY), 2));
+	LeftStickRadius		= isqrt(pow(get_ival(Strafe), 2) + pow(get_ival(Walk), 2));
+	Running				= LeftStickRadius >= 96 && get_ival(Walk) < inv(SprintThreshold);
+	SmartRumble			= get_rumble(RumbleToUse());
+	PS4SwapFix();
+
+	// BLOCK RUMBLE - START
+	if(RumbleBlockToggle)
+		block_rumble();
+	// BLOCK RUMBLE - END
+
+	//HAIR TRIGGERS -  START
+	if(HairTriggersToggle)
+	{
+		if(get_ival(PS4_R2) > 10) // We don't assign this as the Fire_BTN variable because ONLY L2/LT and R2/RT can have a hair trigger to them
+			set_val(PS4_R2, 100);
+
+		if(get_ival(PS4_L2) > 10) // We don't assign this as the Ads_BTN variable because ONLY L2/LT and R2/RT can have a hair trigger to them
+			set_val(PS4_L2, 100);
+	}
+	//HAIR TRIGGERS - END
+
+	//BATTERY WARNING - START
+	if(BatteryWarningToggle)
+	{
+		if(RunRumble && !combo_running(cRumble))
+		{
+			RunRumble -= 1;
+			combo_restart(cRumble);
+		}
+
+		if(get_battery() <= 5) 
+		{
+			MS += get_rtime();
+
+			if(MS == 5000)
+			{
+				Rumble(FALSE, 3);
+				MS = 0;
+			}
+		}
+	}
+	//BATTERY WARNING - END
+
+	//AUTO RUN - START
+	if(AutoRunMode && !AutoRun_KS)
+	{
+		switch(AutoRunMode)
+		{
+			case ScriptAutoRun
+			{
+				if(Running && !get_val(Ads_BTN) && !get_val(Fire_BTN))
+				{
+					combo_run(cRun);
+				}
+
+				if(get_val(Sprint_BTN) && Running && !get_val(Ads_BTN) && !get_val(Fire_BTN))
+				{
+					Sprinting = TRUE;
+				}
+
+				if(Sprinting)
+				{
+					if(Running && !get_val(Ads_BTN) && !get_val(Fire_BTN))
+					{
+						Sprinting = FALSE;
+					}
+				}
+			break;
+			}
+
+			case BetterAutoSprint_
+			{
+				if(!get_ival(Ads_BTN) && (!combo_running(cCancelSlideMW) || !combo_running(cCancelSlideCW) || !combo_running(cMW2CancelSlideStandard)
+										|| !combo_running(cCancelSlideMW2Tac) || !combo_running(cCancelSlideMW2Lethal) || !combo_running(cBFCancelSlide)) &&
+					  isqrt(pow(abs(get_ival(Strafe)), 2) + pow(abs(get_ival(Walk)), 2)) >= 97 && get_ival(Walk) <= inv(72) &&
+					!(isqrt(pow(abs(get_lval(Strafe)), 2) + pow(abs(get_lval(Walk)), 2)) >= 97 && get_lval(Walk) <= inv(72)))
+						combo_run(cRun);
+			break;
+			}
+
+			case MW2InfiniteRun
+			{
+				if(Running && !get_val(Ads_BTN) && !get_val(Fire_BTN))
+				{
+					if(!combo_running(cTactSprint))
+					{
+						combo_run(cTactSprint);
+					}
+				}
+				else
+				{
+					combo_stop(cTactSprint);
+				}
+			break;
+			}
+		}
+	}
+
+		if(event_press(Reload_BTN))
+		{
+			combo_run(cStopSprint);
+		}
+
+		if(event_press(Ads_BTN) || event_press(Fire_BTN))
+		{
+			combo_stop(cStopSprint);
+			AutoRun_KS = FALSE;
+		}
+	//AUTO RUN - END
+
+	//KILL SWITCH METHOD & TOGGLE / DRIVE MODE - START
+	if(KillSwitchToggle)
+	{
+		switch(KillSwitchMethod)
+		{
+			case HoldSingleTap
+			{
+				if(get_ival(KillSwitchHoldButton))
+				{
+					if(event_press(KillSwitchDblTapButton))
+					{
+						KillSwitch	= !KillSwitch;
+						Frame		= inv(1);
+						OLEDDisplay	= TRUE;
+						combo_restart(cSS_Nikolai);
+						combo_run(cVibrate);
+						LEDBlink(KillSwitch);
+					}
+						block(KillSwitchDblTapButton, get_ptime(KillSwitchHoldButton) + 50);
+				}
+			break;
+			}
+
+			case HoldDoubleTap
+			{
+				if(get_ival(KillSwitchHoldButton))
+				{
+					if(DoubleClick(KillSwitchDblTapButton))
+					{
+						KillSwitch	= !KillSwitch;
+						Frame		= inv(1);
+						OLEDDisplay	= TRUE;
+						combo_restart(cSS_Nikolai);
+						combo_run(cVibrate);
+						LEDBlink(KillSwitch);
+					}
+						block(KillSwitchDblTapButton, get_ptime(KillSwitchHoldButton) + 50);
+				}
+			break;
+			}
+
+			case DoubleTapKS
+			{
+				if(DoubleClick(KillSwitchDblTapButton))
+				{
+					KillSwitch	= !KillSwitch;
+					Frame		= inv(1);
+					OLEDDisplay	= TRUE;
+					combo_restart(cSS_Nikolai);
+					combo_run(cVibrate);
+					LEDBlink(KillSwitch);
+				}
+					set_val(KillSwitchDblTapButton, 0);
+			break;
+			}
+
+			case HoldButton
+			{
+				if(get_ival(KillSwitchHoldButton))
+				{
+					if(DoubleClick(KillSwitchDblTapButton))
+					{
+						driveMode	= TRUE;
+						KillSwitch	= TRUE;
+						Frame		= inv(1);
+						OLEDDisplay	= TRUE;
+						combo_restart(cSS_Nikolai);
+						combo_run(cVibrate);
+					}
+						block(KillSwitchDblTapButton, get_ptime(KillSwitchHoldButton) + 50);
+				}
+			break;
+			}
+		}
+
+		if(driveMode)
+		{
+			if(event_press(PS4_SQUARE))
+			{
+				driveMode	= FALSE;
+				KillSwitch	= FALSE;
+			}
+		}
+	}
+	//KILL SWITCH METHOD & TOGGLE / DRIVE MODE - END
+
+	if(!KillSwitch)
+	{
+		if(ZenScreen == MenuClose)
+		{
+
+		//QUICK TOGGLE - START
+		if(QuickToggles)
+		{
+			if(get_ival(QuickToggleHoldButton))
+			{
+				if(event_press(RapidFireQT))
+				{
+					RapidFireToggle = !RapidFireToggle;
+					combo_run(cVibrate);
+					LEDBlink(RapidFireToggle);
+				}
+
+				if(event_press(DropShotQT))
+				{
+					StandardDropShotToggle = !StandardDropShotToggle;
+					combo_run(cVibrate);
+					LEDBlink(StandardDropShotToggle);
+				}
+
+				if(event_press(BunnyHopQT))
+				{
+					BunnyHopToggle = !BunnyHopToggle;
+					combo_run(cVibrate);
+					LEDBlink(BunnyHopToggle);
+				}
+
+				if(event_press(JumpShotQT))
+				{
+					JumpShotToggle = !JumpShotToggle;
+					combo_run(cVibrate);
+					LEDBlink(JumpShotToggle);
+				}
+					block(RapidFireQT, get_ptime(QuickToggleHoldButton) + 50);
+					block(DropShotQT , get_ptime(QuickToggleHoldButton) + 50);
+					block(BunnyHopQT , get_ptime(QuickToggleHoldButton) + 50);
+					block(JumpShotQT , get_ptime(QuickToggleHoldButton) + 50);
+			}
+		}
+		//QUICK TOGGLE - END
+
+	    //RAPIDFIRE - START
+		if(RapidFireToggle)
+		{
+			if(get_ival(Fire_BTN) || ScopeShotToggle == 2 && get_ival(Ads_BTN) || ScopeShotToggle == 3 && get_ival(Ads_BTN) || get_ival(Fire_BTN))
+			{
+				combo_run(cRapidFire);
+			}
+			else
+			{
+				combo_stop(cRapidFire);
+			}
+		}
+
+		if(AkimboRapidFireToggle)
+		{
+			if(get_ival(Fire_BTN) || ScopeShotToggle == 2 && get_ival(Ads_BTN) || ScopeShotToggle == 3 && get_ival(Ads_BTN) || get_ival(Fire_BTN))
+			{
+				combo_run(cAkimboRapid);
+			}
+			else
+			{
+				combo_stop(cAkimboRapid);
+			}
+		}
+
+		if(BurstFireToggle)
+		{
+			if(get_ival(Fire_BTN) || ScopeShotToggle == 2 && get_ival(Ads_BTN) || ScopeShotToggle == 3 && get_ival(Ads_BTN) || get_ival(Fire_BTN))
+			{
+				combo_run(cBurstFire);
+			}
+			else
+			{
+				combo_stop(cBurstFire);
+			}
+		}
+
+		if(DynamicRapidFireToggle)
+		{
+			if(get_ival(Fire_BTN) || ScopeShotToggle == 2 && get_ival(Ads_BTN) || ScopeShotToggle == 3 && get_ival(Ads_BTN) || get_ival(Fire_BTN))
+			{
+				deadzone(PS4_L2, PS4_R2, 10, 10);
+				Fire_Rate = 1000 / get_ival(Fire_BTN) << 1 + random(5, 10);
+				combo_run(cDynaFire);
+			}
+			else
+			{
+				combo_stop(cDynaFire);
+			}
+		}
+		//RAPIDFIRE - END
+
+		//ANTI RECOIL - START
+		switch(AntiRecoilType)
+		{
+			case TaylorRumbleV1_ /* Taylor Rumble V1 - Slightly Edited By SS_Nikolai */
+			{
+				if(AntiRecoilActivation())
+				{
+					if(get_controller() == PIO_XB1)
+						AntiRecoilStrength = VerticalRecoilStr + (SmartRumble / 3);
+					else
+						AntiRecoilStrength = VerticalRecoilStr + (SmartRumble >> 1);
+
+					if(SmartRumble < 10)
+					{
+						if(InvertedUser)
+						{
+							Set_Val(AimY, inv((VerticalRecoilStr + random(0, 5) - get_val(AimY))));
+							Set_Val(AimX, (HorizontalRecoilStr + random(0, 5)));
+						}
+						else
+						{
+							Set_Val(AimY, (VerticalRecoilStr + random(0, 5) - get_val(AimY)));
+							Set_Val(AimX, (HorizontalRecoilStr + random(0, 5)));
+						}
+					}
+					else
+					{
+						if(InvertedUser)
+						{
+							Set_Val(AimY, inv((AntiRecoilStrength + random(0, 5))));
+							Set_Val(AimX, (HorizontalRecoilStr + random(0, 5)));
+						}
+						else
+						{
+							Set_Val(AimY, (AntiRecoilStrength + random(0, 5)));
+							Set_Val(AimX, (HorizontalRecoilStr + random(0, 5)));
+						}
+					}
+				}
+
+					if(event_release(Fire_BTN))
+					{
+						AntiRecoilStrength  = 0;
+						SmartRumble         = 0;
+					}
+			break;
+			}
+
+			case TaylorLegacyV1_ /* Taylor Legacy V1 - Slightly Edited By SS_Nikolai */
+			{
+				if(AntiRecoilActivation())
+				{
+					if(RightStickRadius > DeadZone)
+					{
+						if(InvertedUser)
+						{
+							Set_Val(AimY, inv((VerticalRecoilStr + random(0, 5))));
+							Set_Val(AimX, HorizontalRecoilStr + random(0, 5));
+						}
+						else
+						{
+							Set_Val(AimY, (VerticalRecoilStr + random(0, 5)));
+							Set_Val(AimX, HorizontalRecoilStr + random(0, 5));
+						}
+					}
+
+					if(RightStickRadius < DeadZone)
+					{
+						if(InvertedUser)
+						{
+							Set_Val(AimY, inv((VerticalRecoilStr + random(0, 5) - get_val(AimY))));
+							Set_Val(AimX, HorizontalRecoilStr + random(0, 5));
+						}
+						else
+						{
+							Set_Val(AimY, (VerticalRecoilStr + random(0, 5) - get_val(AimY)));
+							Set_Val(AimX, HorizontalRecoilStr + random(0, 5));
+						}
+					}
+				}
+			break;
+			}
+
+			case EviLRumble_ /* Sweet_Evil Rumble AR */
+			{
+				CurrentRX = get_ival(AimX);
+				CurrentRY = get_ival(AimY);
+
+				if(AntiRecoilActivation())
+				{
+					Set_Val(AimY, clamp(CurrentRY + RumbleEviLAntiRecoil() * Inverted, inv(100), 100));
+					Set_Val(AimX, HorizontalRecoilStr + random(0, 5));
+				}
+				else
+				{
+					CurrentRY = 0;
+					CurrentRX = 0;
+				}
+			break;
+			}
+
+			case EviLDynamic_ /* Sweet_Evil Dynamic AR */
+			{
+				CurrentRX = get_ival(AimX);
+				CurrentRY = get_ival(AimY);
+
+				if(AntiRecoilActivation())
+				{
+					Set_Val(AimY, clamp(CurrentRY + DynamicEviLAntiRecoil(AR_Strength, CurrentRY, CurrentRX) * Inverted, inv(100), 100));
+					Set_Val(AimX, HorizontalRecoilStr + random(0, 5));
+				}
+				else
+				{
+					CurrentRY = 0;
+					CurrentRX = 0;
+				}
+			break;
+			}
+
+			case SwedemafiaProgressive_ /* Swedemafia Progressive AR */
+			{
+				if(AntiRecoilActivation())
+				{
+					executeAntiRecoil();
+				}
+				else
+				{
+					antiRecoilStateX	= 0; // Reset horizontal stage
+					antiRecoilStateY	= 0; // Reset vertical stage
+					antiRecoilCounterX  = 0; // Reset horizontal counter
+					antiRecoilCounterY  = 0; // Reset vertical counter
+				}
+			break;
+			}
+		}
+		//ANTI RECOIL - END
+
+		//AIM ABUSE - START
+		if(AimAbuseToggle)
+		{
+			if(get_ival(Ads_BTN))
+				combo_run(cAimAbuse);
+
+			if(event_release(Ads_BTN))
+				combo_stop(cAimAbuse);
+		}
+		//AIM ABUSE - END
+		
+		//DROPSHOT - START
+		if(StandardDropShotToggle)
+		{
+			if(get_ival(Fire_BTN))
+				combo_run(cDropShot);
+		}
+
+		if(SS_NikolaiDropShotToggle)
+		{
+			if(event_release(Fire_BTN))
+			{
+				DropShotVariable = FALSE;
+			}
+
+			if(!KillSwitch)
+			{
+				if(get_val(Fire_BTN) && event_press(Crouch_BTN))
+				{
+					DropShotVariable = TRUE;
+				}
+			}
+
+			if(!KillSwitch)
+			{
+				if(DropShotVariable)
+				{
+					if(get_ival(Fire_BTN))
+					{
+						combo_run(cDropShot);
+					}
+				}
+			}
+		}
+		//DROPSHOT - END
+
+		// STICKY AIM - START
+		switch(StickyAimToggle)
+		{
+			case Single_AA
+			{
+				if(get_ival(Ads_BTN) && !get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= ADSOnlyStrength;
+					WaitValue	= ADSOnlySpeed;
+				}
+			break;
+			}
+
+			case Double_AA
+			{
+				if(get_ival(Ads_BTN) && !get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= ADSOnlyStrength;
+					WaitValue	= ADSOnlySpeed;
+				}
+				else if(get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= ADSFireStrength;
+					WaitValue	= ADSFireSpeed;
+				}
+			break;
+			}
+
+			case Triple_AA
+			{
+				if(get_ival(Ads_BTN) && !get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= ADSOnlyStrength;
+					WaitValue	= ADSOnlySpeed;
+				}
+				else if(get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= ADSFireStrength;
+					WaitValue	= ADSFireSpeed;
+				}
+				else if(!get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= FireOnlyStrength;
+					WaitValue	= FireOnlySpeed;
+				}
+			break;
+			}
+
+			case Quad_AA
+			{
+				if(get_ival(Ads_BTN) && !get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= ADSOnlyStrength;
+					WaitValue	= ADSOnlySpeed;
+				}
+				else if(get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= ADSFireStrength;
+					WaitValue	= ADSFireSpeed;
+				}
+				else if(!get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				{
+					combo_run(cStickyAA);
+					StickyValue	= FireOnlyStrength;
+					WaitValue	= FireOnlySpeed;
+				}
+				else if(isqrt(abs(get_val(AimX)) * abs(get_val(AimX)) + abs(get_val(AimY)) * abs(get_val(AimY))) <= 100)
+				{
+					combo_run(cStickyAA);
+					StickyValue	= AlwaysOnStrength;
+					WaitValue	= AlwaysOnSpeed;
+				}
+			break;
+			}
+		}
+		// STICKY AIM - END
+
+		//DNAM Polar With Taylor Shapes - START
+		if(TaylorShape)
+		{
+			CycleRefresh	+= get_rtime();
+			aimAngle		+= TaylorAngle + random(0, 6);
+
+			if(aimAngle >= 360) { aimAngle -= 360; }
+
+			if(ShapeDirectionToggle) { ShapeDirection = (get_val(AimX) > 0); }
+
+			switch(TaylorTracking)
+			{
+				case OriginalTracking
+				{
+					TrackingAngle = (TrackingAngle + TrackingSpeed) % 360;
+
+					TrackingAngleOne = (TrackingSize * SIN(TrackingAngle) / 100);
+					TrackingAngleTwo = (TrackingSize * COS(TrackingAngle) / 100);
+
+				break;
+				}
+
+				case DynamicSmallTracking
+				{
+					DynamicTracking = (TrackingSize * (100 - RightStickRadius)) / 100;
+
+					TrackingAngleOne = (DynamicTracking * SIN(TrackingAngle) / 100);
+					TrackingAngleTwo = (DynamicTracking * COS(TrackingAngle) / 100);
+				break;
+				}
+
+				case DynamicBigTracking
+				{
+					DynamicTracking = ((TrackingSize << 1)) + RightStickRadius * (TrackingSize) / 100;
+
+					TrackingAngleOne = ((DynamicTracking) * SIN(TrackingAngle) / 100);
+					TrackingAngleTwo = ((DynamicTracking) * COS(TrackingAngle) / 100);
+				break;
+				}
+			}
+
+			if(TaylorAimActivation())
+			{
+				TaylorShape(POLAR_RS, aimAngle, TaylorRadius + random(0, 6));
+			}
+		}
+		//DNAM Polar With Taylor Shapes - END
+
+		// DoGz TIMED AIM ASSIST - START
+		if(DoGzTimedAimAssist)
+		{
+			if(DoGzAimActivation())
+			{
+				DoGzTimeAA();
+			}
+
+			if(event_release(Ads_BTN) || event_release(Fire_BTN))
+			{
+				AAT 	= 0;
+				AxisT	= 0;
+			}
+		}
+		// DoGz TIMED AIM ASSIST - END
+
+		// SWEET_EVIL STEADY AIM - START
+		if(SteadyAimToggle)
+		{
+			CurrentRX = get_ival(AimX);
+			CurrentRY = get_ival(AimY);
+
+			CurrentRX = GetSteadyAim(CurrentRX, SteadyAimResolution);
+			CurrentRY = GetSteadyAim(CurrentRY, SteadyAimResolution);
+
+			set_val(AimX, clamp(CurrentRX, inv(100), 100));
+			set_val(AimY, clamp(CurrentRY, inv(100), 100));
+		}
+		// SWEET_EVIL STEADY AIM - END
+
+		//Strafe ASSIST - START
+		switch(SpeedStrafeToggle)
+		{
+			case Circular
+			{
+				if(StrafeAssistActivation())
+				{
+					Set_Val(Strafe, (random(0, 6) + StrafeAssistRadius << 1 * COS(StrafeAngle) / 100));
+					Set_Val(Walk  , (random(0, 6) + StrafeAssistRadius << 1 * SIN(StrafeAngle) / 100));
+				}
+
+				if(Strafe > 0)
+				{
+					StrafeAngle += StrafeAssistSpeed + random(0, 4);
+				}
+				else
+				{
+					StrafeAngle -= StrafeAssistSpeed + random(0, 4);
+				}
+			break;
+			}
+
+			case Diamond
+			{
+				if(StrafeAssistActivation())
+				{
+					combo_run(cRotationalAimAssist);
+				}
+				else
+				{
+					combo_stop(cRotationalAimAssist);
+				}
+			break;
+			}
+		}
+		//Strafe ASSIST - END
+
+		//FAST MELEE - START
+		switch(FastMeleeMode)
+		{
+			case HoldOneMelee
+			{
+				if(get_ptime(Melee_BTN) >= 250 && get_ival(Melee_BTN))
+				{
+					combo_run(cFastMelee);
+				}
+
+				if(combo_running(cFastMelee) && (get_ival(Ads_BTN) || get_ival(Fire_BTN)))
+				{
+					combo_stop(cFastMelee);
+				}
+			break;
+			}
+
+			case HoldTwoMelee
+			{
+				if(get_ptime(Melee_BTN) > 250 && get_ival(Melee_BTN))
+				{
+					combo_run(cFastMelee);
+				}
+
+				if(event_release(Melee_BTN))
+				{
+					combo_stop(cFastMelee);
+				}
+			break;
+			}
+		}
+		//FAST MELEE - END
+
+		//DOLPHIN CANCEL - START
+		if(DolphinCancelToggle)
+		{
+			if(!get_val(Ads_BTN) && !get_val(Fire_BTN) && Running)
+			{
+				if(get_ival(Crouch_BTN) && get_ptime(Crouch_BTN) > 300)
+				{
+					combo_run(cDolphinCancel);
+				}
+			}
+		}
+		//DOLPHIN CANCEL - END
+
+		//JUMP PEAK - START
+		if(JumpPeakToggle)
+		{
+			if(Running)
+				Keep[TimeSprint] += get_rtime();
+
+			if(get_val(Walk) > inv(SprintThreshold) || get_ival(Ads_BTN))
+				Keep[TimeRest] += get_rtime();
+
+			if(Keep[TimeRest] > 1800 || (get_ival(Ads_BTN) && get_ptime(Ads_BTN) > 1800) || get_ptime(Reload_BTN) < 2100)
+				ResetSprint();
+
+			if(get_ival(Ads_BTN) && get_ival(Walk) < inv(SprintThreshold))
+			{
+				if(get_ptime(Ads_BTN) < 50)
+				{
+					BlockInput(Ads_BTN);
+					set_val(Jump_BTN, 100);
+				}
+					if(get_ptime(Ads_BTN) > 550)
+						ResetSprint();
+			}
+		}
+		//JUMP PEAK - END
+
+		//Strafe - START
+		if(StrafeToggle)
+		{
+			if(get_ival(Fire_BTN))
+				combo_run(cStrafe);
+		}
+		//Strafe - END
+
+		//BUNNY HOP - START
+		if(BunnyHopToggle)
+		{
+			if(get_ival(Jump_BTN) && get_ptime(Jump_BTN) >= 240)
+				combo_run(cBunnyHop);
+			else 
+				combo_stop(cBunnyHop);
+		}
+		//BUNNY HOP - END
+		
+		//QUICK SCOPE - START
+		switch(QuickScopeMode)
+		{
+			case DoubleTapQS
+			{
+				if(Trigger_Toggle == TRUE && get_ival(Reload_BTN) || Trigger_Toggle == TRUE && get_ival(Lethal_BTN))
+				{
+					set_val(Reload_BTN, 0);
+					set_val(Lethal_BTN, 0);
+				}
+				else if(event_release(Reload_BTN) || event_release(Lethal_BTN))
+				{
+					Trigger_Toggle = FALSE;
+				}
+
+				if(event_press(Ads_BTN))
+				{ 
+					Trigger_Toggle = TRUE; 
+				}
+				else if(get_ival(Ads_BTN) && get_ptime(Ads_BTN) > 140)
+				{
+					set_val(Sprint_BTN, 100); 
+				}
+				else if(Trigger_Toggle == TRUE && event_release(Ads_BTN))
+				{
+					combo_run(cQuickScope);
+				}
+					if(event_press(Sprint_BTN))
+					{
+						combo_run(cHoldBreath);
+					}
+			break;
+			}
+
+			case QSOnRelease
+			{
+				if(event_release(Ads_BTN) && get_ptime(Ads_BTN) <= 250)
+				{
+					combo_run(cQuickScope);
+				}
+			break;
+			}
+		}
+		//QUICK SCOPE - END
+
+		//PERFECT ACCURACY - START
+		if(PerfectAccuracyToggle)
+		{
+			if(get_ival(Ads_BTN) > 80)
+			{
+				if(get_ival(Lethal_BTN) > 10)
+				{
+					combo_run(cPerfectionAccuracy);
+					newHold =       40 + random(0, 20);
+					newRest =      150 + random(0, 20);
+				}
+					block(Lethal_BTN, get_ptime(Ads_BTN) + 50);
+			}
+			else if(get_ival(Ads_BTN) < 80 && get_ival(Ads_BTN) > 10)
+			{
+				if(get_ival(Lethal_BTN) > 10)
+				{
+					combo_run(cPerfectionAccuracy);
+					newHold = burstHold;
+					newRest = burstRest;
+				}
+					block(Lethal_BTN, get_ptime(Ads_BTN) + 50);
+			}
+		}
+		//PERFECT ACCURACY - END
+
+		//SCOPESHOT - START
+		switch(ScopeShotToggle)
+		{
+			case FireSS
+			{
+				if(get_ival(Fire_BTN) && !get_ival(Ads_BTN))
+					set_val(Ads_BTN, 100);
+			break;
+			}
+
+			case AdsSS
+			{
+				if(get_ival(Ads_BTN) && !get_ival(Fire_BTN))
+					set_val(Fire_BTN, 100);
+			break;
+			}
+
+			case AdsOrFireSS
+			{
+				if(get_ival(Ads_BTN))
+					set_val(Fire_BTN, 100);
+				else if(get_ival(Fire_BTN))
+					set_val(Ads_BTN, 100);
+			break;
+			}
+		}
+		//SCOPESHOT - END
+	  		
+	  	//HOLDBREATH - START
+		if(HoldBreathToggle)
+		{
+			if(get_ival(Ads_BTN))
+				set_val(Sprint_BTN, 100);
+
+			if(get_ival(Walk) < inv(90) && get_ival(Ads_BTN) && get_ptime(Ads_BTN) > 200)
+				combo_stop(cHoldBreath);
+
+			if(event_press(Ads_BTN))
+				combo_run(cHoldBreath);
+
+			if(get_ival(Ads_BTN) && get_lval(Sprint_BTN))
+				set_val(Sprint_BTN, 0);
+		}
+		//HOLDBREATH - END
+
+		//SLIDE CANCEL - START
+		if(!get_val(Ads_BTN) && !get_val(Fire_BTN) && event_release(Crouch_BTN) && Running)
+		{
+			switch(SlideCancelMode)
+			{
+				case MWVGLegacy_
+				{
+					combo_run(cCancelSlideMW);
+				break;
+				}
+
+				case MWVGRumble_
+				{
+					if(get_rumble(RUMBLE_A) == 87 || get_rumble(RUMBLE_A) == 26)
+					{
+						combo_run(cCancelSlideMW);
+					}
+				break;
+				}
+
+				case CWLegacy_
+				{
+					combo_run(cCancelSlideCW);
+				break;
+				}
+
+				case CWRumble_
+				{
+					if(get_rumble(RUMBLE_A) == 100 || get_rumble(RUMBLE_A) == 36)
+					{
+						combo_run(cCancelSlideCW);
+					}
+				break;
+				}
+
+				case BF2042_
+				{
+					combo_run(cBFCancelSlide);
+				break;
+				}
+
+				case MW2Standard_
+				{
+					combo_run(cMW2CancelSlideStandard);
+				break;
+				}
+
+				case MW2Tactical_
+				{
+					combo_run(cCancelSlideMW2Tac);
+				break;
+				}
+
+				case MW2Lethal_
+				{
+					combo_run(cCancelSlideMW2Lethal);
+				break;
+				}
+			}
+		}
+		//SLIDE CANCEL - END
+		
+		//AUTOPING - START
+		switch(AutoPingMode)
+		{
+			case AdsPing
+			{
+				if(event_press(Ads_BTN))
+					combo_run(cAutoPing);
+			break;
+			}
+
+			case FirePing
+			{
+				if(event_press(Fire_BTN))
+					combo_run(cAutoPing);
+			break;
+			}
+
+			case AdsFirePing
+			{
+				if(get_ival(Ads_BTN) && event_press(Fire_BTN))
+					combo_run(cAutoPing);
+			break;
+			}
+
+			case AdsTacticalPing
+			{
+				if(get_ival(Ads_BTN) && event_press(Tactical_BTN))
+					combo_run(cAutoPing);
+					set_val(Tactical_BTN, 0);
+			break;
+			}
+		}
+		//AUTOPING - END
+		
+		//SENS - START
+		if(AimCorrectionsToggle)
+		{
+			if(get_ival(Ads_BTN))
+			{
+				if(!get_ival(Fire_BTN))
+				{
+					GenStr = AdsSens;
+				}
+				else
+				{
+					GenStr = AdsFireSens;
+				}
+			}
+			else if(get_ival(Fire_BTN))
+			{
+				GenStr = FireSens; 
+			}
+			else
+			{
+				GenStr = 100;
+			}
+				sensitivity(AimY, NOT_USE, GenStr);
+				sensitivity(AimX, NOT_USE, GenStr);
+    	}
+		//SENS - END
+
+		//SNAKE MOD - START
+		if(SnakeToggle)
+		{
+			BlockInput(Jump_BTN);
+
+			if(get_ival(Jump_BTN) && get_ptime(Jump_BTN) > 300 && !get_ival(Ads_BTN))
+				combo_run(cSnake);
+
+			if(event_release(Jump_BTN) && get_ptime(Jump_BTN) <= 300 && !get_ival(Ads_BTN))
+				combo_run(cPressJump);
+		}
+		//SNAKE MOD - END
+
+
+		//MW2 G WALK - START
+		if(MW2GWalkToggle)
+		{
+			if(!get_val(Ads_BTN) && !get_val(Fire_BTN) && get_ival(Sprint_BTN) && get_ptime(Sprint_BTN) > 300 && Running)
+					combo_run(cGWalk);
+
+			if(combo_running(cGWalk) && (event_press(Ads_BTN) || event_press(Fire_BTN) || (get_val(Walk) > inv(SprintThreshold))))
+				combo_stop(cGWalk);
+		}
+		//MW2 G WALK - END
+
+		//--HEADSHOT ASSIST - START
+		if(HeadShotAssistToggle)
+		{
+			RY = inv(HeadShotStrength);
+
+			if(get_ival(Fire_BTN) && get_ptime(Fire_BTN) < HeadShotHoldTime)
+			{
+				Set_Val(AimY, RY);
+			}
+		}
+		//--HEADSHOT ASSIST - END
+
+		// JUMP SHOT - START
+		if(JumpShotToggle)
+		{
+			if(get_ival(Fire_BTN))
+				combo_run(cJumpyShot);
+			if(event_release(Fire_BTN))
+				combo_stop(cJumpyShot);
+		}
+		// JUMP SHOT - END
+
+		if(get_ival(PS4_L2))
+		{
+			if(event_press(PS4_OPTIONS))
+			{
+				ZenScreen 	= MainMods;
+				OLEDDisplay	= TRUE;
+				combo_stop(cRGB);
+			}
+				block(PS4_OPTIONS, get_ptime(PS4_L2) + 50)
+		}
+			combo_run(cRGB);
+	}
+
+	SS_NikolaiCheck();
+
+	if(ZenScreen == MainMods)
+	{
+		block_all_inputs();
+		block_all_outputs();
+
+		if(RumbleBlockToggle)
+			block_rumble();
+
+		AntiRecoilType     			= ToggleSwitch(1,  AntiRecoilType			, 0,	 5);
+		TaylorShape  	   			= ToggleSwitch(2,  TaylorShape				, 0,	11);
+		TaylorTracking	   			= ToggleSwitch(3,  TaylorTracking			, 0,	 3);
+		StickyAimToggle  	   		= ToggleSwitch(4,  StickyAimToggle			, 0,	 4);
+		DoGzTimedAimAssist			= ToggleSwitch(5,  DoGzTimedAimAssist		, 0,	 1);
+		SteadyAimToggle				= ToggleSwitch(6,  SteadyAimToggle			, 0,	 1);
+		AimAbuseToggle				= ToggleSwitch(7,  AimAbuseToggle			, 0,	 1);
+		SpeedStrafeToggle  			= ToggleSwitch(8,  SpeedStrafeToggle		, 0,	 2);
+		AimCorrectionsToggle		= ToggleSwitch(9,  AimCorrectionsToggle		, 0,	 1);
+		SlideCancelMode    			= ToggleSwitch(10, SlideCancelMode			, 0,	 8);
+		RapidFireToggle    			= ToggleSwitch(11, RapidFireToggle			, 0,	 1);
+		AkimboRapidFireToggle		= ToggleSwitch(12, AkimboRapidFireToggle	, 0,	 1);
+		BurstFireToggle				= ToggleSwitch(13, BurstFireToggle			, 0,	 1);
+		DynamicRapidFireToggle		= ToggleSwitch(14, DynamicRapidFireToggle	, 0,	 1);
+		JumpShotToggle				= ToggleSwitch(15, JumpShotToggle			, 0,	 1);
+		ScopeShotToggle				= ToggleSwitch(16, ScopeShotToggle			, 0,	 3);
+		QuickScopeMode				= ToggleSwitch(17, QuickScopeMode			, 0,	 2);
+		StrafeToggle	   			= ToggleSwitch(18, StrafeToggle				, 0,	 1);
+		StandardDropShotToggle		= ToggleSwitch(19, StandardDropShotToggle	, 0,	 1);
+		SS_NikolaiDropShotToggle	= ToggleSwitch(20, SS_NikolaiDropShotToggle	, 0,	 1);
+		HoldBreathToggle			= ToggleSwitch(21, HoldBreathToggle			, 0,	 1);
+		AutoPingMode		   		= ToggleSwitch(22, AutoPingMode				, 0,	 4);
+		BunnyHopToggle    	   		= ToggleSwitch(23, BunnyHopToggle			, 0,	 1);
+		AutoRunMode					= ToggleSwitch(24, AutoRunMode				, 0,	 3);
+		FastMeleeMode				= ToggleSwitch(25, FastMeleeMode			, 0,	 2);
+		PerfectAccuracyToggle		= ToggleSwitch(26, PerfectAccuracyToggle	, 0,	 1);
+		HeadShotAssistToggle		= ToggleSwitch(27, HeadShotAssistToggle		, 0,	 1);
+		RumbleBlockToggle			= ToggleSwitch(28, RumbleBlockToggle		, 0,	 1);
+		MW2GWalkToggle				= ToggleSwitch(29, MW2GWalkToggle			, 0,	 1);
+		DolphinCancelToggle			= ToggleSwitch(30, DolphinCancelToggle		, 0,	 1);
+		JumpPeakToggle				= ToggleSwitch(31, JumpPeakToggle			, 0,	 1);
+		SnakeToggle					= ToggleSwitch(32, SnakeToggle				, 0,	 1);
+
+		if(Mod == 1)
+		{
+			if(event_press(PS4_RIGHT))
+			{
+				AntiRecoilActivationType	= Cycle(AntiRecoilActivationType + 1, 0, 3);
+				OLEDDisplay					= TRUE;
+			}
+
+			if(event_press(PS4_LEFT))
+			{
+				AntiRecoilActivationType	= Cycle(AntiRecoilActivationType - 1, 0, 3);
+				OLEDDisplay					= TRUE;
+            }
+		}
+
+		if(Mod == 2)
+		{
+			if(event_press(PS4_RIGHT))
+			{
+				TaylorAimActivationType	= Cycle(TaylorAimActivationType + 1, 0, 5);
+				OLEDDisplay				= TRUE;
+			}
+
+			if(event_press(PS4_LEFT))
+			{
+				TaylorAimActivationType	= Cycle(TaylorAimActivationType - 1, 0, 5);
+				OLEDDisplay				= TRUE;
+            }
+		}
+
+		if(Mod == 4)
+		{
+			if(event_press(PS4_RIGHT))
+			{
+				StickyAimToggle	= Cycle(StickyAimToggle + 1, 0, 4);
+				OLEDDisplay		= TRUE;
+			}
+
+			if(event_press(PS4_LEFT))
+			{
+				StickyAimToggle	= Cycle(StickyAimToggle - 1, 0, 4);
+				OLEDDisplay		= TRUE;
+            }
+		}
+
+		if(Mod == 5)
+		{
+			if(event_press(PS4_RIGHT))
+			{
+				DoGzAimActivationType	= Cycle(DoGzAimActivationType + 1, 0, 5);
+				OLEDDisplay				= TRUE;
+			}
+
+			if(event_press(PS4_LEFT))
+			{
+				DoGzAimActivationType	= Cycle(DoGzAimActivationType - 1, 0, 5);
+				OLEDDisplay				= TRUE;
+            }
+		}
+
+		if(Mod == 8)
+		{
+			if(event_press(PS4_RIGHT))
+			{
+				StrafeAssistActivationType	= Cycle(StrafeAssistActivationType + 1, 0, 5);
+				OLEDDisplay					= TRUE;
+			}
+
+			if(event_press(PS4_LEFT))
+			{
+				StrafeAssistActivationType	= Cycle(StrafeAssistActivationType - 1, 0, 5);
+				OLEDDisplay					= TRUE;
+            }
+		}
+
+		if(event_press(PS4_SQUARE))
+		{
+			if(EditableMods[Mod] == 1)
+			{
+				ZenScreen	= EditMods;
+				OLEDDisplay	= TRUE;
+			}
+		}
+
+		if(event_press(PS4_UP))
+		{
+			Mod			= Cycle(Mod - 1, 1, NumOfMods);
+			OLEDDisplay	= TRUE;
+		}
+
+		if(event_press(PS4_DOWN))
+		{
+			Mod			= Cycle(Mod + 1, 1, NumOfMods);
+			OLEDDisplay	= TRUE;
+		}
+
+		if(event_press(PS4_CIRCLE))
+		{
+			ZenScreen	= MenuClose;
+			Pin			= random(102, 999);
+			Frame		= inv(1);
+			OLEDDisplay	= TRUE;
+			combo_restart(cSS_Nikolai);
+			Save();
+		}
+	}
+
+	if(ZenScreen == EditMods)
+	{
+		block_all_inputs();
+		block_all_outputs();
+
+		if(RumbleBlockToggle)
+			block_rumble();
+
+		if(event_press(PS4_CIRCLE))
+		{
+			ZenScreen	= MainMods;
+			OLEDDisplay	= TRUE;
+		}
+
+		if(event_press(PS4_UP))
+		{
+			Scroll	= Cycle(Scroll + 1, 0, 2);
+			OLEDDisplay = TRUE;
+		}
+
+		if(event_press(PS4_DOWN))
+		{
+			Scroll	= Cycle(Scroll - 1, 0, 2);
+			OLEDDisplay = TRUE;
+		}
+
+			if(Mod == 1 && AntiRecoilType == EviLRumble_ || Mod == 1 && AntiRecoilType == EviLDynamic_)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				AR_Strength			= EditValues(1, AR_Strength		   , 1, inv(100), 100);
+				HorizontalRecoilStr	= EditValues(0, HorizontalRecoilStr, 1, inv(100), 100);
+			}
+			else if(Mod == 1 && AntiRecoilType == TaylorRumbleV1_ || Mod == 1 && AntiRecoilType == TaylorLegacyV1_)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				VerticalRecoilStr	= EditValues(1, VerticalRecoilStr  , 1, inv(100), 100);
+				HorizontalRecoilStr	= EditValues(0, HorizontalRecoilStr, 1, inv(100), 100);
+			}
+			else if(Mod == 1 && AntiRecoilType == SwedemafiaProgressive_)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 2)
+					Scroll = 2;
+
+				if(Tab == 0)
+				{
+					if(event_press(PS4_R1))
+					{
+						Tab += 1;
+						OLEDDisplay = TRUE;
+					}
+						VerticalStart	= EditValues(2, VerticalStart,   1, inv(100),  100);
+						VerticalEnd		= EditValues(1, VerticalEnd  ,   1, inv(100),  100);
+						VerticalTime	= EditValues(0, VerticalTime , 100,    	   0, 9000);
+				}
+
+				if(Tab == 1)
+				{
+					if(event_press(PS4_L1))
+					{
+						Tab -= 1;
+						OLEDDisplay = TRUE;
+					}
+						HorizontalStart	= EditValues(2, HorizontalStart,   1, inv(100),  100);
+						HorizontalEnd	= EditValues(1, HorizontalEnd  ,   1, inv(100),  100);
+						HorizontalTime	= EditValues(0, HorizontalTime , 100,    	 0, 9000);
+				}
+			}
+
+			if(Mod == 2)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				TaylorRadius = EditValues(1, TaylorRadius, 1, 0,  50);
+				TaylorAngle  = EditValues(0, TaylorAngle , 1, 0, 100);
+			}
+
+			if(Mod == 3)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				TrackingSize	= EditValues(1, TrackingSize , 1, 0, 10);
+				TrackingSpeed	= EditValues(0, TrackingSpeed, 1, 0, 10);
+			}
+
+			if(Mod == 4 && StickyAimToggle == 1)
+			{
+				Scroll = 1;
+
+				if(Tab == 0)
+				{
+					if(event_press(PS4_R1))
+					{
+						Tab += 1;
+						OLEDDisplay = TRUE;
+					}
+						ADSOnlyStrength = EditValues(1, ADSOnlyStrength, 1, 0, 50);
+				}
+
+				if(Tab == 1)
+				{
+					if(event_press(PS4_L1))
+					{
+						Tab -= 1;
+						OLEDDisplay = TRUE;
+					}
+						ADSOnlySpeed = EditValues(1, ADSOnlySpeed, 10, 0, 100);
+				}
+			}
+			else if(Mod == 4 && StickyAimToggle == 2)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				if(Tab == 0)
+				{
+					if(event_press(PS4_R1))
+					{
+						Tab += 1;
+						OLEDDisplay = TRUE;
+					}
+						ADSOnlyStrength		= EditValues(1, ADSOnlyStrength , 1, 0, 50);
+						ADSFireStrength 	= EditValues(0, ADSFireStrength , 1, 0, 50);
+				}
+
+				if(Tab == 1)
+				{
+					if(event_press(PS4_L1))
+					{
+						Tab -= 1;
+						OLEDDisplay = TRUE;
+					}
+						ADSOnlySpeed	= EditValues(1, ADSOnlySpeed , 10, 0, 100);
+						ADSFireSpeed	= EditValues(0, ADSFireSpeed , 10, 0, 100);
+				}
+			}
+			else if(Mod == 4 && StickyAimToggle == 3 || Mod == 4 && StickyAimToggle == 4)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 2)
+					Scroll = 2;
+
+				if(Tab == 0)
+				{
+					if(event_press(PS4_R1))
+					{
+						Tab += 1;
+						OLEDDisplay = TRUE;
+					}
+						ADSOnlyStrength		= EditValues(2, ADSOnlyStrength , 1, 0, 50);
+						ADSFireStrength 	= EditValues(1, ADSFireStrength , 1, 0, 50);
+						FireOnlyStrength	= EditValues(0, FireOnlyStrength, 1, 0, 50);
+				}
+
+				if(Tab == 1)
+				{
+					if(event_press(PS4_L1))
+					{
+						Tab -= 1;
+						OLEDDisplay = TRUE;
+					}
+						ADSOnlySpeed	= EditValues(2, ADSOnlySpeed , 10, 0, 100);
+						ADSFireSpeed	= EditValues(1, ADSFireSpeed , 10, 0, 100);
+						FireOnlySpeed	= EditValues(0, FireOnlySpeed, 10, 0, 100);
+				}
+			}
+
+			if(Mod == 5)
+			{
+				Scroll = 1;
+
+				Strength = EditValues(1, Strength, 1, 0, 10);
+			}
+
+			if(Mod == 6)
+			{
+				Scroll = 1;
+
+				SteadyAimResolution	= EditValues(1, SteadyAimResolution , 1, 0, 100);
+			}
+
+			if(Mod == 8)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				StrafeAssistRadius	= EditValues(1, StrafeAssistRadius,  1, 0,  50);
+				StrafeAssistSpeed	= EditValues(0, StrafeAssistSpeed ,  5, 0, 100);
+			}
+
+			if(Mod == 9)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 2)
+					Scroll = 2;
+
+				AdsSens		= EditValues(2, AdsSens	   , 1, 0, 100);
+				AdsFireSens	= EditValues(1, AdsFireSens, 1, 0, 100);
+				FireSens	= EditValues(0, FireSens   , 1, 0, 100);
+			}
+
+			if(Mod == 11)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				RapidHold = EditValues(1, RapidHold, 10, 0, 3000);
+				RapidRest = EditValues(0, RapidRest, 10, 0, 3000);
+			}
+
+			if(Mod == 17)
+			{
+				Scroll = 1;
+
+				QS_Delay = EditValues(1, QS_Delay, 10, 0, 3000);
+			}
+
+			if(Mod == 18)
+			{
+				Scroll = 1;
+
+				StrafeDelay = EditValues(1, StrafeDelay, 10, 0, 3000);
+			}
+
+			if(Mod == 19 || Mod == 20)
+			{
+				Scroll = 1;
+
+				DropShotSpeed = EditValues(1, DropShotSpeed, 10, 0, 100);
+			}
+
+			if(Mod == 22)
+			{
+				Scroll = 1;
+
+				AutoPingDelay = EditValues(1, AutoPingDelay, 10, 0, 5000);
+			}
+
+			if(Mod == 24)
+			{
+				Scroll = 1;
+
+				AutoRunDelay = EditValues(1, AutoRunDelay, 100, 0, 9999);
+			}
+
+			if(Mod == 26)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				burstHold = EditValues(1, burstHold, 10, 0, 3000);
+				burstRest = EditValues(0, burstRest, 10, 0, 3000);
+			}
+
+			if(Mod == 27)
+			{
+				if(Scroll < 0)
+					Scroll = 0;
+				if(Scroll > 1)
+					Scroll = 1;
+
+				HeadShotStrength = EditValues(1, HeadShotStrength,   1, 0,   99);
+				HeadShotHoldTime = EditValues(0, HeadShotHoldTime, 100, 0, 2000);
+			}
+		}
+	}
+
+	if(screenSaver)
+	{
+		if(ZenScreen == MenuClose)
+			SS_NikolaiTextOne();
+		if(ZenScreen == MainMods)
+			SS_NikolaiTextTwo();
+
+		rect_oled(0, 0, 128, 64, 0, 1);
+		SS_NikolaiCountDown += get_rtime();
+		SS_NikolaiScreenSaver();
+
+		if(SS_NikolaiCountDown >= 9000)
+    	{
+      		cls_oled(0);
+      		SS_NikolaiCountDown	=	  0;
+      		screenSaver			= FALSE;
+    	}
+	}
+
+	if(OLEDDisplay)
+	{
+		cls_oled(0);
+		SS_NikolaiCountDown = 0;
+
+	if(!KillSwitch)
+	{
+		if(ZenScreen == MenuClose)
+		{
+			print(CenterX(GetChars(0), OLED_FONT_SMALL_WIDTH), 18, 0, 1, ModsString[0]);
+		}
+
+		if(ZenScreen == MainMods)
+		{
+			print(CenterX(GetChars(Mod), OLED_FONT_SMALL_WIDTH), CenterY(OLED_FONT_SMALL_HEIGHT), 0, 1, ModsString[Mod]);
+
+			if(Mod == 1)
+			{
+				switch(AntiRecoilType)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(DisabledOff)		- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, DisabledOff[0]);
+					break;
+					}
+
+					case 1
+					{
+						print(CenterX(sizeof(RumbleV1Recoil)	- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, RumbleV1Recoil[0]);
+					break;
+					}
+
+					case 2
+					{
+						print(CenterX(sizeof(LegacyV1Recoil)	- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, LegacyV1Recoil[0]);
+					break;
+					}
+
+					case 3
+					{
+						print(CenterX(sizeof(EviLRumbleAR)		- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, EviLRumbleAR[0]);
+					break;
+					}
+
+					case 4
+					{
+						print(CenterX(sizeof(EviLDynamicAR)		- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, EviLDynamicAR[0]);
+					break;
+					}
+
+					case 5
+					{
+						print(CenterX(sizeof(ProgressiveAR)		- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, ProgressiveAR[0]);
+					break;
+					}
+				}
+
+				switch(AntiRecoilActivationType)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)				- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);
+					break;
+					}
+	
+					case 1
+					{
+						print(CenterX(sizeof(AdsAndFireAR)			- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, AdsAndFireAR[0]);
+					break;
+					}
+	
+					case 2
+					{
+						print(CenterX(sizeof(FireOnlyAR)			- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, FireOnlyAR[0]);
+					break;
+					}
+						
+					case 3
+					{
+						print(CenterX(sizeof(AdsAndFireOrFireAR)	- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, AdsAndFireOrFireAR[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 2)
+			{
+				print(CenterX(AimAssistShape_Chars(TaylorShape), OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, AimPatterns[TaylorShape]);
+
+				switch(TaylorAimActivationType)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)		- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);
+					break;
+					}
+	
+					case 1
+					{
+						print(CenterX(sizeof(AdsOrFireAA)	- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, AdsOrFireAA[0]);
+					break;
+					}
+	
+					case 2
+					{
+						print(CenterX(sizeof(AdsFireAA)		- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, AdsFireAA[0]);
+					break;
+					}
+						
+					case 3
+					{
+						print(CenterX(sizeof(FireOnlyAA)	- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, FireOnlyAA[0]);
+					break;
+					}
+
+					case 4
+					{
+						print(CenterX(sizeof(AdsOnlyAA)		- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, AdsOnlyAA[0]);
+					break;
+					}
+
+					case 5
+					{
+						print(CenterX(sizeof(AdsFireOrFire)	- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, AdsFireOrFire[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 3)
+			{
+				switch(TaylorTracking)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);
+					break;
+					}
+	
+					case 1
+					{
+						print(CenterX(sizeof(Original)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Original[0]);
+					break;
+					}
+	
+					case 2
+					{
+						print(CenterX(sizeof(DynamicSmall)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, DynamicSmall[0]);
+					break;
+					}
+
+					case 3
+					{
+						print(CenterX(sizeof(DynamicBig)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, DynamicBig[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 4)
+			{
+				switch(StickyAimToggle)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);
+					break;
+					}
+	
+					case 1
+					{
+						print(CenterX(sizeof(SingleAA)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, SingleAA[0]);
+					break;
+					}
+	
+					case 2
+					{
+						print(CenterX(sizeof(DoubleAA)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, DoubleAA[0]);
+					break;
+					}
+						
+					case 3
+					{
+						print(CenterX(sizeof(TripleAA)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, TripleAA[0]);
+					break;
+					}
+	
+					case 4
+					{
+						print(CenterX(sizeof(QuadAA)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, QuadAA[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 5)
+			{
+				switch(DoGzAimActivationType)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);
+					break;
+					}
+	
+					case 1
+					{
+						print(CenterX(sizeof(AdsOrFireAA)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, AdsOrFireAA[0]);
+					break;
+					}
+	
+					case 2
+					{
+						print(CenterX(sizeof(AdsFireAA)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, AdsFireAA[0]);
+					break;
+					}
+						
+					case 3
+					{
+						print(CenterX(sizeof(FireOnlyAA)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, FireOnlyAA[0]);
+					break;
+					}
+	
+					case 4
+					{
+						print(CenterX(sizeof(AdsOnlyAA)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, AdsOnlyAA[0]);
+					break;
+					}
+
+					case 5
+					{
+						print(CenterX(sizeof(AdsFireOrFire)	- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, AdsFireOrFire[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 8)
+			{
+				switch(SpeedStrafeToggle)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(ModIsOFF)		- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, ModIsOFF[0]);
+					break;
+					}
+	
+					case 1
+					{
+						print(CenterX(sizeof(CircularStrA)	- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, CircularStrA[0]);
+					break;
+					}
+	
+					case 2
+					{
+						print(CenterX(sizeof(DiamondStrA)	- 1, OLED_FONT_SMALL_WIDTH), 37, OLED_FONT_SMALL, OLED_WHITE, DiamondStrA[0]);
+					break;
+					}
+				}
+
+				switch(StrafeAssistActivationType)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)		- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);
+					break;
+					}
+	
+					case 1
+					{
+						print(CenterX(sizeof(AdsOrFireAA)	- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, AdsOrFireAA[0]);
+					break;
+					}
+	
+					case 2
+					{
+						print(CenterX(sizeof(AdsFireAA)		- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, AdsFireAA[0]);
+					break;
+					}
+						
+					case 3
+					{
+						print(CenterX(sizeof(FireOnlyAA)	- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, FireOnlyAA[0]);
+					break;
+					}
+	
+					case 4
+					{
+						print(CenterX(sizeof(AdsOnlyAA)		- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, AdsOnlyAA[0]);
+					break;
+					}
+
+					case 5
+					{
+						print(CenterX(sizeof(AdsFireOrFire)	- 1, OLED_FONT_SMALL_WIDTH), 49, OLED_FONT_SMALL, OLED_WHITE, AdsFireOrFire[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 10)
+			{
+				switch(SlideCancelMode)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);	
+					break;
+					}
+
+					case 1
+					{
+						print(CenterX(sizeof(MWStandard)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, MWStandard[0]);
+					break;
+					}
+
+					case 2
+					{
+						print(CenterX(sizeof(MWRumble)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, MWRumble[0]);
+					break;
+					}
+
+					case 3
+					{
+						print(CenterX(sizeof(CWStandard)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, CWStandard[0]);
+					break;
+					}
+
+					case 4
+					{
+						print(CenterX(sizeof(CWRumble)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, CWRumble[0]);
+					break;
+					}
+
+					case 5
+					{
+						print(CenterX(sizeof(BFStandard)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, BFStandard[0]);
+					break;
+					}
+
+					case 6
+					{
+						print(CenterX(sizeof(MW2Standard)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, MW2Standard[0]);
+					break;
+					}
+
+					case 7
+					{
+						print(CenterX(sizeof(MW2Tactical)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, MW2Tactical[0]);
+					break;
+					}
+
+					case 8
+					{
+						print(CenterX(sizeof(MW2Lethal)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, MW2Lethal[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 16)
+			{
+				switch(ScopeShotToggle)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)				- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);	
+					break;
+					}
+
+					case 1
+					{
+						print(CenterX(sizeof(RightTrigScopeShot)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, RightTrigScopeShot[0]);
+					break;
+					}
+
+					case 2
+					{
+						print(CenterX(sizeof(LeftTrigScopeShot)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, LeftTrigScopeShot[0]);
+					break;
+					}
+
+					case 3
+					{
+						print(CenterX(sizeof(BothTrigScopeShot)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, BothTrigScopeShot[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 17)
+			{
+				switch(QuickScopeMode)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);	
+					break;
+					}
+
+					case 1
+					{
+						print(CenterX(sizeof(AimFireQS)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, AimFireQS[0]);
+					break;
+					}
+
+					case 2
+					{
+						print(CenterX(sizeof(DblTapQS)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, DblTapQS[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 22)
+			{
+				switch(AutoPingMode)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)			- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);	
+					break;
+					}
+
+					case 1
+					{
+						print(CenterX(sizeof(AdsAutoPing)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, AdsAutoPing[0]);
+					break;
+					}
+
+					case 2
+					{
+						print(CenterX(sizeof(FireAutoPing)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, FireAutoPing[0]);
+					break;
+					}
+
+					case 3
+					{
+						print(CenterX(sizeof(AdsFireAutoPing)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, AdsFireAutoPing[0]);
+					break;
+					}
+
+					case 4
+					{
+						print(CenterX(sizeof(AdsTacAutoPing)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, AdsTacAutoPing[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 24)
+			{
+				switch(AutoRunMode)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)			- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);	
+					break;
+					}
+
+					case 1
+					{
+						print(CenterX(sizeof(ScriptAutoSprint)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, ScriptAutoSprint[0]);
+					break;
+					}
+
+					case 2
+					{
+						print(CenterX(sizeof(BetterAutoSprint)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, BetterAutoSprint[0]);
+					break;
+					}
+
+					case 3
+					{
+						print(CenterX(sizeof(MW2TacSprint)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, MW2TacSprint[0]);
+					break;
+					}
+				}
+			}
+
+			if(Mod == 25)
+			{
+				switch(FastMeleeMode)
+				{
+					case 0
+					{
+						print(CenterX(sizeof(Disabled)				- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, Disabled[0]);	
+					break;
+					}
+
+					case 1
+					{
+						print(CenterX(sizeof(AutoMaticFastMelee)	- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, AutoMaticFastMelee[0]);
+					break;
+					}
+
+					case 2
+					{
+						print(CenterX(sizeof(ManualFastMelee)		- 1, OLED_FONT_SMALL_WIDTH), 42, OLED_FONT_SMALL, OLED_WHITE, ManualFastMelee[0]);
+					break;
+					}
+				}
+			}
+		}
+
+	if(ZenScreen == EditMods)
+	{
+		print(CenterX(GetChars(Mod), OLED_FONT_SMALL_WIDTH), 3, 0, 1, ModsString[Mod]);
+
+		if(Mod == 27)
+		{
+			NumberToStringRegular(HeadShotStrength, FindDigits (HeadShotStrength), 23);
+			NumberToStringSmall(HeadShotHoldTime  , FindDigits (HeadShotHoldTime), 41);
+		}
+
+		if(Mod == 26)
+		{
+			NumberToStringRegular(burstHold, FindDigits (burstHold), 23);
+			NumberToStringRegular(burstRest, FindDigits (burstRest), 41);
+		}
+
+		if(Mod == 24)
+		{
+			NumberToStringSmall(AutoRunDelay, FindDigits (AutoRunDelay), 29);
+		}
+
+		if(Mod == 22)
+		{
+			NumberToStringSmall(AutoPingDelay, FindDigits (AutoPingDelay), 29);
+		}
+
+		if(Mod == 19 || Mod == 20)
+		{
+			NumberToStringRegular(DropShotSpeed, FindDigits (DropShotSpeed), 25);
+		}
+
+		if(Mod == 18)
+		{
+			NumberToStringRegular(StrafeDelay, FindDigits (StrafeDelay), 25);
+		}
+
+		if(Mod == 17)
+		{
+			NumberToStringRegular(QS_Delay, FindDigits (QS_Delay), 25);
+		}
+
+		if(Mod == 11)
+		{
+			NumberToStringRegular(RapidHold, FindDigits (RapidHold), 23);
+			NumberToStringRegular(RapidRest, FindDigits (RapidRest), 41);
+		}
+
+		if(Mod == 9)
+		{
+			NumberToStringSmall(AdsSens 	, FindDigits (AdsSens) 	  , 20);
+			NumberToStringSmall(AdsFireSens , FindDigits (AdsFireSens), 33);
+			NumberToStringSmall(FireSens	, FindDigits (FireSens)	  , 46);
+		}
+
+		if(Mod == 8)
+		{
+			NumberToStringRegular(StrafeAssistRadius, FindDigits (StrafeAssistRadius), 23);
+			NumberToStringRegular(StrafeAssistSpeed , FindDigits (StrafeAssistSpeed) , 41);
+		}
+
+		if(Mod == 6)
+		{
+			NumberToStringRegular(SteadyAimResolution, FindDigits (SteadyAimResolution), 25);
+		}
+
+		if(Mod == 5)
+		{
+			NumberToStringRegular(Strength, FindDigits (Strength), 25);
+		}
+
+		if(Mod == 4 && StickyAimToggle == 1)
+		{
+			if(Tab == 0)
+			{
+				NumberToStringRegular(ADSOnlyStrength, FindDigits (ADSOnlyStrength), 25);
+			}
+
+			if(Tab == 1)
+			{
+				NumberToStringRegular(ADSOnlySpeed, FindDigits (ADSOnlySpeed), 25);
+			}
+		}
+		else if(Mod == 4 && StickyAimToggle == 2)
+		{
+			if(Tab == 0)
+			{
+				NumberToStringSmall(ADSOnlyStrength, FindDigits (ADSOnlyStrength), 23);
+				NumberToStringSmall(ADSFireStrength, FindDigits (ADSFireStrength), 43);
+			}
+
+			if(Tab == 1)
+			{
+				NumberToStringSmall(ADSOnlySpeed, FindDigits (ADSOnlySpeed), 23);
+				NumberToStringSmall(ADSFireSpeed, FindDigits (ADSFireSpeed), 43);
+			}
+		}
+		else if(Mod == 4 && StickyAimToggle == 3 || Mod == 4 && StickyAimToggle == 4)
+		{
+			if(Tab == 0)
+			{
+				NumberToStringSmall(ADSOnlyStrength , FindDigits (ADSOnlyStrength) , 20);
+				NumberToStringSmall(ADSFireStrength , FindDigits (ADSFireStrength) , 33);
+				NumberToStringSmall(FireOnlyStrength, FindDigits (FireOnlyStrength), 46);
+			}
+
+			if(Tab == 1)
+			{
+				NumberToStringSmall(ADSOnlySpeed , FindDigits (ADSOnlySpeed) , 20);
+				NumberToStringSmall(ADSFireSpeed , FindDigits (ADSFireSpeed) , 33);
+				NumberToStringSmall(FireOnlySpeed, FindDigits (FireOnlySpeed), 46);
+			}
+		}
+
+		if(Mod == 3)
+		{
+			NumberToStringRegular(TrackingSize , FindDigits (TrackingSize) , 23);
+			NumberToStringRegular(TrackingSpeed, FindDigits (TrackingSpeed), 41);
+		}
+
+		if(Mod == 2)
+		{
+			NumberToStringRegular(TaylorRadius, FindDigits (TaylorRadius), 23);
+			NumberToStringRegular(TaylorAngle , FindDigits (TaylorAngle) , 43);
+		}
+
+		if(Mod == 1 && AntiRecoilType == EviLRumble_ || Mod == 1 && AntiRecoilType == EviLDynamic_)
+		{
+			NumberToStringRegular(AR_Strength  		 , FindDigits (AR_Strength)  	   , 23);
+			NumberToStringRegular(HorizontalRecoilStr, FindDigits (HorizontalRecoilStr), 41);
+		}
+		else if(Mod == 1 && AntiRecoilType == TaylorRumbleV1_ || Mod == 1 && AntiRecoilType == TaylorLegacyV1_)
+		{
+			NumberToStringRegular(VerticalRecoilStr  , FindDigits (VerticalRecoilStr)  , 23);
+			NumberToStringRegular(HorizontalRecoilStr, FindDigits (HorizontalRecoilStr), 41);
+		}
+		else if(Mod == 1 && AntiRecoilType == SwedemafiaProgressive_)
+		{
+			if(Tab == 0)
+			{
+				NumberToStringSmall(VerticalStart, FindDigits (VerticalStart), 20);
+				NumberToStringSmall(VerticalEnd  , FindDigits (VerticalEnd)  , 33);
+				NumberToStringSmall(VerticalTime , FindDigits (VerticalTime) , 46);
+			}
+
+			if(Tab == 1)
+			{
+				NumberToStringSmall(HorizontalStart, FindDigits (HorizontalStart), 20);
+				NumberToStringSmall(HorizontalEnd  , FindDigits (HorizontalEnd)  , 33);
+				NumberToStringSmall(HorizontalTime , FindDigits (HorizontalTime) , 46);
+			}
+		}
+
+			if(Scroll == 2)
+				line_oled(30, 20, 40, 20, 3, 1);
+			if(Scroll == 1)
+				line_oled(30, 33, 40, 33, 3, 1);
+			if(Scroll == 0)
+				line_oled(30, 46, 40, 46, 3, 1);
+			}
+		}
+		else 
+		{
+			rect_oled(0, 0, 128, 64, 0, 1);
+
+			if(KillSwitchMethod == 4)
+			{
+				print(CenterX(GetChars(12), OLED_FONT_SMALL_WIDTH), 34, 0, 1, ModsString[34]);
+			}
+			else
+			{
+				print(CenterX(GetChars(12), OLED_FONT_SMALL_WIDTH), 34, 0, 1, ModsString[33]);
+			}
+		}
+			rect_oled(0, 0, 128, 64, 0, 1);
+			screenSaver	=  TRUE;
+			OLEDDisplay	= FALSE;
+	}
+}
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | | | | | | | | |C|O|M|B|O| |S|E|C|T|I|O|N| | | | | | S | S | _ | N | i | k | o | l | a | i | | | | | | | | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/ 
+combo cRGB {
+	wait(10);
+
+	set_rgb(Colour, Colour[1], Colour[2]);
+
+	Colour[Decrease] -= 3;
+	Colour[Increase] += 3;
+
+	if(!Colour[Decrease])
+	{
+		Increase = (Increase + 1) % 3;
+		Decrease = (Decrease + 1) % 3;
+	}
+}
+
+combo cVibrate {
+	set_rumble(RUMBLE_A, 90);
+	wait(230);
+	reset_rumble();
+}
+
+combo cRumble {
+	set_rumble(RumbleSide, 100);
+	wait(RumbleTime);
+	reset_rumble();
+	wait(100);
+}
+
+combo cFlashGreen {
+	set_rgb(0, 255, 0);
+	wait(100);
+	set_rgb(0, 0, 0);
+	wait(100);
+	set_rgb(0, 255, 0);
+	wait(100);
+	set_rgb(0, 0, 0);
+	wait(100);
+	set_rgb(0, 255, 0);
+	wait(2000);
+	set_rgb(0, 0, 0);
+}
+
+combo cFlashRed {
+	set_rgb(255, 0, 0);
+	wait(100);
+	set_rgb(0, 0, 0);
+	wait(100);
+	set_rgb(255, 0, 0);
+	wait(100);
+	set_rgb(0, 0, 0);
+	wait(100);
+	set_rgb(255, 0, 0);
+	wait(2000);
+	set_rgb(0, 0, 0);
+}
+
+combo cStickyAA {
+	StrafeRandom = random(inv(QuadStrafeAssist), QuadStrafeAssist)
+
+	Set_Val(AimY,   StickyValue + random(0, 5));
+	wait(WaitValue + random(0, 10));
+	Set_Val(AimX,   StickyValue  + random(0, 5));
+	Set_Val(Strafe, StrafeRandom + random(0, 5));
+	wait(WaitValue + random(0, 10));
+	Set_Val(AimY,   inv(StickyValue) + random(0, 5));
+	wait(WaitValue + random(0, 10));
+	Set_Val(AimX,   inv(StickyValue) + random(0, 5));
+	Set_Val(Strafe, StrafeRandom 	 + random(0, 5));
+	wait(WaitValue + random(0, 10));
+}
+
+combo cRotationalAimAssist {
+	Set_Val(Strafe,		StrafeAssistRadius << 1 + random(0, 5));
+	Set_Val(Walk  , inv(StrafeAssistRadius << 1) + random(0, 5));
+	wait(StrafeAssistSpeed + random(0, 10));
+	Set_Val(Strafe, inv(StrafeAssistRadius << 1) + random(0, 5));
+	Set_Val(Walk ,		StrafeAssistRadius << 1 + random(0, 5));
+	wait(StrafeAssistSpeed + random(0, 10));
+	Set_Val(Walk  , 	StrafeAssistRadius << 1 + random(0, 5));
+	Set_Val(Strafe, 	StrafeAssistRadius << 1 + random(0, 5));
+	wait(StrafeAssistSpeed + random(0, 10));
+	Set_Val(Strafe, inv(StrafeAssistRadius << 1) + random(0, 5));
+	Set_Val(Walk  , inv(StrafeAssistRadius << 1) + random(0, 5));
+	wait(StrafeAssistSpeed + random(0, 10));
+}
+
+combo cAutoPing {
+	set_val(Ping_BTN, 0);
+	wait(100 + random(20, 30));
+	set_val(Ping_BTN, 100);
+	wait(50 + random(0, 10));
+	set_val(Ping_BTN, 0);
+	wait(50 + random(0, 10));
+	set_val(Ping_BTN, 100);
+	wait(50 + random(0, 10));
+	set_val(Ping_BTN, 0);
+	wait(AutoPingDelay);
+}
+
+combo cFastMelee {
+	set_val(Melee_BTN, 100);
+	wait(40 + random(0, 20));
+	set_val(Melee_BTN, 0);
+	wait(30 + random(0, 20));
+}
+
+combo cRun {
+	Sprinting = 1;
+	set_val(Sprint_BTN, 100);
+	wait(30 + random(20, 40));
+	set_val(Sprint_BTN, 0);
+	wait(20 + random(20, 40));
+	set_val(Sprint_BTN, 0);
+}
+
+combo cStopSprint {
+	AutoRun_KS = TRUE;
+	wait(AutoRunDelay);
+	AutoRun_KS = FALSE;
+}
+
+combo cAimAbuse { 			// Meant For CoD Zombies Or Games That Have Snap Aim Assist When Spamming The Ads Button
+	set_val(Ads_BTN, 100);
+	wait(random(190, 300)); // Hold Time Between 190ms and 300ms
+	set_val(Ads_BTN, 0);
+	wait(random(70, 170));  //  Release Time Between 70ms and 170ms 
+}
+
+combo cBunnyHop {
+    set_val(Jump_BTN, 100);
+    wait(60 + random(0, 20));
+    set_val(Jump_BTN, 0);
+    wait(60 + random(0, 20));
+    set_val(Jump_BTN, 100);
+    wait(60 + random(0, 20));
+    set_val(Jump_BTN, 0);
+    wait(60 + random(0, 20));
+}
+
+combo cRapidFire {
+    wait(RapidHold + random(0, 10));
+    set_val(Fire_BTN, 0);
+    wait(RapidRest + random(0, 10));
+}
+
+combo cAkimboRapid {
+    set_val(Fire_BTN, 100);
+    set_val(Ads_BTN, 100);
+    wait(50 + random(10, 20));
+    set_val(Fire_BTN, 0);
+    set_val(Ads_BTN, 0);
+	wait(20 + random(10, 20));
+}
+
+combo cBurstFire {
+	wait(420 + random(0, 20));
+    set_val(Fire_BTN, 0);
+	wait(190 + random(0, 20));
+}
+
+combo cDynaFire {
+	wait(Fire_Rate + 10 + random(0, 20));
+	set_val(Fire_BTN, 0);
+	wait(Fire_Rate + 10 + random(0, 20));
+}
+
+combo cDolphinCancel{
+	wait(840 + random(0, 20));
+	set_val(Sprint_BTN, 100);
+	wait(50 + random(0, 20));
+	wait(80 + random(0, 20));
+	set_val(Sprint_BTN, 100);
+	wait(50 + random(0, 20));
+	set_val(Walk, 100);
+	wait(30 + random(0, 20));
+	combo_run(cTactSprint);
+}
+
+combo cTactSprint {
+	set_val(Sprint_BTN, 100);
+	wait(100 + random(20, 40));
+	set_val(Sprint_BTN, 0);
+	wait(100 + random(20, 40));
+	set_val(Sprint_BTN, 100);
+	wait(960 + random(20, 40));
+}
+
+combo cGWalk {
+	set_val(Walk, 0);
+	wait(40 + random(0, 20));
+	set_val(Crouch_BTN, 100);
+	wait(440 + random(0, 20));
+	set_val(Sprint_BTN, 100);
+	wait(40 + random(0, 20));
+	set_val(Sprint_BTN, 0);
+	wait(40 + random(0, 20));
+	set_val(Sprint_BTN, 100);
+	wait(40 + random(0, 20));
+	set_val(Sprint_BTN, 0);
+	wait(400);
+}
+
+combo cJumpyShot {
+	set_val(Jump_BTN, 100);
+	wait(90 + random(10, 20));
+	set_val(Jump_BTN, 0);
+	wait(90 + random(10, 20));
+}
+
+combo cQuickScope { 
+	set_val(Fire_BTN, 0); 
+	set_val(Sprint_BTN, 100);
+	set_val(Ads_BTN, 100); 
+	wait(QS_Delay);
+	set_val(Sprint_BTN, 100);
+	set_val(Ads_BTN, 100); 
+	set_val(Fire_BTN, 100); 
+	wait(50); 
+}
+
+combo cHoldBreath {
+	set_val(Sprint_BTN, 0);
+	wait(70 + random(10, 20));
+	set_val(Sprint_BTN, 100);
+	wait(100);
+	set_val(Sprint_BTN, 0);
+	wait(70 + random(10, 20));
+}
+
+combo cDropShot {
+	set_val(Crouch_BTN, 100);
+	wait(DropShotSpeed + random(10, 20));
+	set_val(Crouch_BTN, 0);
+	wait(30 + random(10, 20));
+}
+
+combo cSnake {
+	wait(40 + random(20, 30));
+	if(get_ptime(Reload_BTN) > get_ptime(Jump_BTN) && (get_brtime(Fire_BTN) > get_ptime(Jump_BTN) && get_ptime(Fire_BTN) > 1500))
+		set_val(Walk, 100);
+	set_val(Crouch_BTN, 100);
+	wait(490 + random(20, 30));
+
+	if(get_ptime(Reload_BTN) > get_ptime(Jump_BTN) && (get_brtime(Fire_BTN) > 3000))
+	{
+		set_val(Sprint_BTN, 100);
+		set_val(Walk, inv(100));
+	}
+	else
+		set_val(Crouch_BTN, 100);
+	wait(240 + random(20, 30));
+}
+
+combo cPressJump {
+	set_val(Jump_BTN, 100);
+	wait(20 + random(0, 10));
+	wait(50 + random(0, 10));
+	if(get_brtime(Fire_BTN) < 400)	
+		set_val(Jump_BTN, 100);
+	wait(20 + random(0, 10));
+	wait(50 + random(0, 10));
+}
+
+combo cCancelSlideMW2Tac {
+	set_val(Crouch_BTN, 100);
+	wait(70 + random(0, 10));
+	set_val(Crouch_BTN, 0);
+	wait(MW2SlideCancelDelay);
+	set_val(Ads_BTN, 100);
+	wait(530 + random(0, 20));
+	set_val(Ads_BTN, 0);
+	wait(80 + random(0, 20));
+	set_val(Jump_BTN, 100);
+	wait(30 + random(0, 10));
+	set_val(Jump_BTN, 0);
+	wait(40 + random(0, 10));
+}
+
+combo cMW2CancelSlideStandard {
+	wait(70 + random(10, 20));
+	wait(290 + random(10, 20));
+	wait(10 + random(10, 20));
+	if(SmartRumble > 5)
+		set_val(PS4_TRIANGLE, 100);
+	wait(10 + random(10, 20));
+	wait(10 + random(10, 20));
+	if(SmartRumble > 5)	
+		set_val(PS4_TRIANGLE, 100);
+	wait(10 + random(10, 20));
+	wait(490 + random(10, 20));
+	set_val(PS4_CROSS, 100);
+	wait(20 + random(10, 20));
+	wait(20 + random(10, 20));
+	ResetSprint();
+}
+
+combo cCancelSlideMW2Lethal {
+	wait(320 + random(10, 30));
+	set_val(Lethal_BTN, 100);
+	wait(70 + random(10, 30));
+	set_val(Swap_BTN,100);
+	wait(10 + random(10, 20));
+	set_val(Swap_BTN, 0);
+	wait(10 + random(10, 20));
+	set_val(Lethal_BTN, 0);
+	wait(420 + random(20, 30));
+	set_val(Jump_BTN, 100);
+	wait(10 + random(0, 10));
+	set_val(Jump_BTN, 0);
+}
+
+combo cBFCancelSlide { 
+	set_val(Jump_BTN, 100);
+	wait(BF2042SlideCancelDelay);
+	set_val(Crouch_BTN, 100);
+	wait(20 + random(0, 10));
+	set_val(Jump_BTN, 0);
+	wait(50 + random(0, 10));
+	set_val(Crouch_BTN, 0);
+	wait(10 + random(0, 10));
+	set_val(Jump_BTN, 100);
+	wait(10 + random(0, 10));
+	set_val(Sprint_BTN, 100);
+	wait(40 + random(0, 20));
+	set_val(Sprint_BTN, 0);
+	wait(10 + random(0, 10));
+}
+
+combo cCancelSlideCW {
+	set_val(Crouch_BTN, 100);
+    wait(CWSlideCancelDelay);
+	set_val(Crouch_BTN, 0);
+	wait(10 + random(0, 10));
+	set_val(Sprint_BTN, 0);
+	set_val(Ads_BTN, 100);
+	wait(10 + random(0, 10));
+	set_val(Ads_BTN, 0);
+	set_val(Crouch_BTN, 100);
+	set_val(Sprint_BTN, 100);
+	wait(10 + random(0, 10));
+	set_val(Crouch_BTN, 0);
+	set_val(Sprint_BTN, 0);
+	wait(10 + random(0, 10));
+}
+
+combo cCancelSlideMW {
+	set_val(Crouch_BTN, 100);
+	wait(MWVGSlideCancelDelay);
+	set_val(Crouch_BTN, 0);
+	wait(40 + random(10, 20));
+	set_val(Crouch_BTN, 100);
+	wait(30 + random(10, 20));
+	set_val(Crouch_BTN, 100);
+	set_val(Jump_BTN, 100);
+	wait(40 + random(10, 20));
+	set_val(Crouch_BTN, 0);
+	set_val(Jump_BTN, 100);
+	wait(10 + random(0, 10));
+	set_val(Jump_BTN, 0);
+}
+
+combo cPerfectionAccuracy {
+	set_val(Fire_BTN, 100);
+	wait(newHold + random(0, 10));
+	set_val(Fire_BTN, 0);
+	wait(newRest + random(0, 10));
+}
+
+combo cStrafe {
+	if(StrafeIndex == 0)
+	{
+		RandomizedStrafeOne = 110;
+		RandomizedStrafeTwo = 210;
+	}
+	else
+	{
+		RandomizedStrafeOne = 210;
+		RandomizedStrafeTwo = 110;
+	}
+
+	Set_Val(Strafe, 100);
+
+	Strafe = random((StrafeDelay - RandomizedStrafeOne), (StrafeDelay + RandomizedStrafeOne));
+
+	wait(Strafe);
+	wait(54);
+	Set_Val(Strafe, inv(100));
+
+	Strafe = random((StrafeDelay - RandomizedStrafeTwo), (StrafeDelay + RandomizedStrafeTwo));
+
+	wait(Strafe);
+	wait(54);
+
+	StrafeIndex++;
+
+	if(StrafeIndex == 2)
+		StrafeIndex = 0;
+}
+
+combo cSS_Nikolai {
+	wait(20);
+	image_oled(0, 10, Color, FALSE, Frames[Frame]);
+	Frame ++;
+}
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+ | | | | | | | | |F |U | N | C | T | I | O | N | S | | | | S | S | _ | N | i | k | o | l | a | i | | | | | | |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
+function Load_PVARs() {
+	Reset_SPVAR();
+
+	AR_Strength					= Read_SPVAR( -100,	 100,	20);
+	HorizontalRecoilStr			= Read_SPVAR( -100,  100,    0);
+	VerticalStart				= Read_SPVAR( -100,  100,   15);
+	VerticalEnd					= Read_SPVAR( -100,  100,   20);
+	HorizontalStart				= Read_SPVAR( -100,  100,    0);
+	HorizontalEnd				= Read_SPVAR( -100,  100,    0);
+	Strength					= Read_SPVAR(	 1,	  10,	 2);
+	TrackingSize				= Read_SPVAR(    1,   10,    2);
+	TrackingSpeed				= Read_SPVAR(    1,   10,    3);
+	DeadZone					= Read_SPVAR(	 1,	  20,	 8);
+	TaylorRadius				= Read_SPVAR(    1,   50,   15);
+	StickyValue					= Read_SPVAR(    1,   50,   15);
+	ADSOnlyStrength				= Read_SPVAR(    1,   50,   14);
+	ADSFireStrength				= Read_SPVAR(    1,   50,   16);
+	FireOnlyStrength			= Read_SPVAR(    1,   50,   18);
+	AdsSens						= Read_SPVAR(    1,  100,   95);
+	AdsFireSens					= Read_SPVAR(    1,  100,   90);
+	FireSens					= Read_SPVAR(    1,  100,   85);
+	ADSOnlySpeed				= Read_SPVAR(    1,  100,   30);
+	ADSFireSpeed				= Read_SPVAR(    1,  100,   20);
+	FireOnlySpeed				= Read_SPVAR(    1,  100,   30);
+	TaylorAngle					= Read_SPVAR(    1,  100,   15);
+	StrafeAssistRadius			= Read_SPVAR(    1,  100,   25);
+	StrafeAssistSpeed			= Read_SPVAR(    1,  100,   30);
+	WaitValue					= Read_SPVAR(    1,  100,   30);
+	HeadShotStrength			= Read_SPVAR(    1,  100,   15);
+	VerticalRecoilStr			= Read_SPVAR(    1,  100,   20);
+	DropShotSpeed				= Read_SPVAR(    1,  100,   60);
+	SteadyAimResolution			= Read_SPVAR(    1,  100,   11);
+	doubleStrengthTime			= Read_SPVAR(    1, 2000,  600);
+	QS_Delay					= Read_SPVAR(    1, 3000,  285);
+	StrafeDelay					= Read_SPVAR(    1, 3000,  400);
+	burstHold					= Read_SPVAR(    1, 3000,  240);
+	burstRest					= Read_SPVAR(    1, 3000,  180);
+	RapidHold					= Read_SPVAR(    1, 3000,   60);
+	RapidRest					= Read_SPVAR(    1, 3000,   30);
+	RapidBurstHold				= Read_SPVAR(    1, 3000,  420);
+	RapidBurstRest				= Read_SPVAR(    1, 3000,  190);
+	HeadShotHoldTime			= Read_SPVAR(    1, 4000, 1500);
+	AutoPingDelay				= Read_SPVAR(    1, 6000, 2000);
+	AutoRunDelay				= Read_SPVAR(    1, 9000, 1800);
+	VerticalTime				= Read_SPVAR(    1, 9000, 1700);
+	HorizontalTime				= Read_SPVAR(    1, 9000, 1900);
+
+	AntiRecoilType				= Read_SPVAR(    0,    5,    0);
+	TaylorShape					= Read_SPVAR(    0,   11,    0);
+	TaylorTracking				= Read_SPVAR(    0,    2,    0);
+	StickyAimToggle				= Read_SPVAR(    0,    4,    0);
+	DoGzTimedAimAssist			= Read_SPVAR(    0,    1,    0);
+	SteadyAimToggle				= Read_SPVAR(    0,    1,    0);
+	AimAbuseToggle				= Read_SPVAR(    0,    1,    0);
+	SpeedStrafeToggle			= Read_SPVAR(    0,    2,    0);
+	AimCorrectionsToggle		= Read_SPVAR(    0,    1,    0);
+	RapidFireToggle				= Read_SPVAR(    0,    1,    0);
+	AkimboRapidFireToggle		= Read_SPVAR(    0,    1,    0);
+	BurstFireToggle				= Read_SPVAR(    0,    1,    0);
+	DynamicRapidFireToggle		= Read_SPVAR(    0,    1,    0);
+	SlideCancelMode				= Read_SPVAR(    0,    8,    0);
+	JumpShotToggle				= Read_SPVAR(    0,    1,    0);
+	ScopeShotToggle				= Read_SPVAR(    0,    3,    0);
+	QuickScopeMode				= Read_SPVAR(    0,    2,    0);
+	StrafeToggle				= Read_SPVAR(    0,    1,    0);
+	StandardDropShotToggle		= Read_SPVAR(    0,    1,    0);
+	SS_NikolaiDropShotToggle	= Read_SPVAR(    0,    1,    0);
+	HoldBreathToggle			= Read_SPVAR(    0,    1,    0);
+	AutoPingMode				= Read_SPVAR(    0,    4,    0);
+	BunnyHopToggle				= Read_SPVAR(    0,    1,    0);
+	AutoRunMode					= Read_SPVAR(    0,    3,    0);
+	FastMeleeMode				= Read_SPVAR(    0,    2,    0);
+	PerfectAccuracyToggle		= Read_SPVAR(    0,    1,    0);
+	HeadShotAssistToggle		= Read_SPVAR(    0,    1,    0);
+	RumbleBlockToggle			= Read_SPVAR(    0,    1,    0);
+	MW2GWalkToggle				= Read_SPVAR(    0,    1,    0);
+	DolphinCancelToggle			= Read_SPVAR(    0,    1,    0);
+	JumpPeakToggle				= Read_SPVAR(    0,    1,    0);
+	SnakeToggle					= Read_SPVAR(    0,    1,    0);
+
+	StickyAimActivationType		= Read_SPVAR(	 0,	   5,	 0);
+	TaylorAimActivationType		= Read_SPVAR(	 0,	   5,	 0);
+	DoGzAimActivationType		= Read_SPVAR(	 0,	   5,	 0);
+	SnakeShotActivationType_	= Read_SPVAR(	 0,	   4,	 0);
+	StrafeAssistActivationType	= Read_SPVAR(	 0,	   5,	 0);
+	AntiRecoilActivationType	= Read_SPVAR(	 0,	   3,	 0);
+
+	Pin 						= Read_SPVAR(  101,  999,  101);
+
+	set_val(TRACE_2, (SPVAR_Current_Slot - SPVAR_1) + (SPVAR_Current_Bit > 0));
+}
+
+function Save() {
+	Reset_SPVAR();
+
+	Save_SPVAR(AR_Strength 					,  -100,   100);
+	Save_SPVAR(HorizontalRecoilStr 			,  -100,   100);
+	Save_SPVAR(VerticalStart				,  -100,   100);
+	Save_SPVAR(VerticalEnd					,  -100,   100);
+	Save_SPVAR(HorizontalStart				,  -100,   100);
+	Save_SPVAR(HorizontalEnd				,  -100,   100);
+	Save_SPVAR(Strength		    		   	,     1,    10);
+	Save_SPVAR(TrackingSize      		 	,     1,    10);
+	Save_SPVAR(TrackingSpeed     		 	,     1,    10);
+	Save_SPVAR(DeadZone	      				,     1,    20);
+	Save_SPVAR(TaylorRadius      		 	,     1,    50);
+	Save_SPVAR(StickyValue           		,     1,    50);
+	Save_SPVAR(ADSOnlyStrength           	,     1,    50);
+	Save_SPVAR(ADSFireStrength      		,     1,    50);
+	Save_SPVAR(FireOnlyStrength       		,     1,    50);
+	Save_SPVAR(AdsSens   					,     1,   100);
+	Save_SPVAR(AdsFireSens   				,     1,   100);
+	Save_SPVAR(FireSens   					,     1,   100);
+	Save_SPVAR(ADSOnlySpeed     			,     1,   100);
+	Save_SPVAR(ADSFireSpeed					,     1,   100);
+	Save_SPVAR(FireOnlySpeed 				,     1,   100);
+	Save_SPVAR(TaylorAngle        			,     1,   100);
+	Save_SPVAR(StrafeAssistRadius			,     1,   100);
+	Save_SPVAR(StrafeAssistSpeed			,     1,   100);
+	Save_SPVAR(WaitValue     				,     1,   100);
+	Save_SPVAR(HeadShotStrength   			,     1,   100);
+	Save_SPVAR(VerticalRecoilStr   			,     1,   100);
+	Save_SPVAR(DropShotSpeed				,     1,   100);
+	Save_SPVAR(SteadyAimResolution			,     1,   100);
+	Save_SPVAR(doubleStrengthTime			,     1,  2000);
+	Save_SPVAR(QS_Delay						,     1,  3000);
+	Save_SPVAR(StrafeDelay					,     1,  3000);
+	Save_SPVAR(burstHold					,     1,  3000);
+	Save_SPVAR(burstRest					,     1,  3000);
+	Save_SPVAR(RapidHold					,     1,  3000);
+	Save_SPVAR(RapidRest					,     1,  3000);
+	Save_SPVAR(RapidBurstHold				,     1,  3000);
+	Save_SPVAR(RapidBurstRest				,     1,  3000);
+	Save_SPVAR(HeadShotHoldTime				,     1,  4000);
+	Save_SPVAR(AutoPingDelay				,     1,  6000);
+	Save_SPVAR(AutoRunDelay					,     1,  9000);
+	Save_SPVAR(VerticalTime					,     1,  9000);
+	Save_SPVAR(HorizontalTime				,     1,  9000);
+
+	Save_SPVAR(AntiRecoilType				,	   0,    5);
+	Save_SPVAR(TaylorShape		  			,	   0,   11);
+	Save_SPVAR(TaylorTracking  	  			,	   0,    3);
+	Save_SPVAR(StickyAimToggle	  	  		,	   0,    4);
+	Save_SPVAR(DoGzTimedAimAssist			,	   0,    1);
+	Save_SPVAR(SteadyAimToggle				,	   0,    1);
+	Save_SPVAR(AimAbuseToggle				,	   0,    1);
+	Save_SPVAR(SpeedStrafeToggle  			,	   0,    2);
+	Save_SPVAR(AimCorrectionsToggle 		,	   0,    1);
+	Save_SPVAR(RapidFireToggle	  			,	   0,    1);
+	Save_SPVAR(AkimboRapidFireToggle		,	   0,    1);
+	Save_SPVAR(BurstFireToggle	  			,	   0,    1);
+	Save_SPVAR(DynamicRapidFireToggle		,	   0,    1);
+	Save_SPVAR(SlideCancelMode	  			,	   0,    8);
+	Save_SPVAR(JumpShotToggle				,	   0,    1);
+	Save_SPVAR(ScopeShotToggle				,	   0,    3);
+	Save_SPVAR(QuickScopeMode				,	   0,    2);
+	Save_SPVAR(StrafeToggle		  			,	   0,    1);
+	Save_SPVAR(StandardDropShotToggle		,	   0,    1);
+	Save_SPVAR(SS_NikolaiDropShotToggle		,	   0,    1);
+	Save_SPVAR(HoldBreathToggle		  		,	   0,    1);
+	Save_SPVAR(AutoPingMode			  		,	   0,    4);
+	Save_SPVAR(BunnyHopToggle		  	  	,	   0,    1);
+	Save_SPVAR(AutoRunMode					,	   0,    3);
+	Save_SPVAR(FastMeleeMode				,	   0,    2);
+	Save_SPVAR(PerfectAccuracyToggle	  	,	   0,    1);
+	Save_SPVAR(HeadShotAssistToggle	  		,	   0,    1);
+	Save_SPVAR(RumbleBlockToggle		  	,	   0,    1);
+	Save_SPVAR(MW2GWalkToggle				,	   0,	 1);
+	Save_SPVAR(DolphinCancelToggle			,	   0,    1);
+	Save_SPVAR(JumpPeakToggle				,	   0,	 1);
+	Save_SPVAR(SnakeToggle					,	   0,	 1);
+
+	Save_SPVAR(StickyAimActivationType		,	   0,    5);
+	Save_SPVAR(TaylorAimActivationType		,	   0,    5);
+	Save_SPVAR(DoGzAimActivationType		,	   0,    5);
+	Save_SPVAR(SnakeShotActivationType_		,	   0,    4);
+	Save_SPVAR(StrafeAssistActivationType	,	   0,    5);
+	Save_SPVAR(AntiRecoilActivationType		,	   0,    3);
+
+	Save_SPVAR(Pin							, 	 101,  999);
+
+	set_val(TRACE_3, (SPVAR_Current_Slot - SPVAR_1) + (SPVAR_Current_Bit > 0));																																																								// This Script Was Made By SS_Nikolai
+}
+
+// ------ DO NOT TOUCH ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING! ------ 
+int SPVAR_Current_Bit, SPVAR_Current_Slot, SPVAR_Current_Value, SPVARTmp, SPVARBits;
+
+function Reset_SPVAR() {
+	SPVAR_Current_Slot = SPVAR_1; // Change this to say where it's safe to Roset storing data
+
+	// Should always be 0, unless you're using part of the first SPVAR 
+	// in which case you should also change the next line to include the 
+	// value you are storing in the bits you are using
+	SPVAR_Current_Bit	= 0;
+	SPVAR_Current_Value = 0;
+}
+
+// Function used to count the number of bits used by the given value
+function Get_Bit_Count(val) {
+	// We need to Roset at 0, we use SPVARTmp here as we need to track
+	// the bits during our loop below
+	SPVARTmp = 0; 
+
+	// Loop while val is anything but 0
+	while (val)
+	{ 
+		// Increment the bit count by 1
+		SPVARTmp++; 
+		
+		// Shift the value down 1 bit, once we have no more bits set this
+		// will result in 0, unless the value is negative - in which case
+		// this will be endless, we do abs here to make it always
+		val = abs(val >> 1);
+	}
+		return SPVARTmp;
+}
+
+// Function used to count the number of bits used by 2 given values
+function Get_Bit_Count2(val1, val2) {
+	// Get the highest bit count required for either min or max
+	SPVARTmp = max(Get_Bit_Count(val1), Get_Bit_Count(val2));
+
+	// Check if we need to know if the value is negative or not
+	if(Is_Signed2(val1, val2))
+	{
+		// If we need to track if the saved value is negative, we need 1 bit
+		// for that specifically - the others are used to store the actual value
+		SPVARTmp++;
+	}
+		return SPVARTmp;
+}
+
+// Function used to determine if either of 2 given values is negative
+function Is_Signed2(val1, val2) {
+	return (val1 < 0) || (val2 < 0);
+}
+
+// Function used to generate a bitmask for the sign bit, this will always be
+// the highest bit in the range we're requesting it for, to do that - we need
+// to Roset with the lowest bit set and move it up the number of steps there
+// is between 1 and the bits we need, this needs to be a maximum of 31 but can
+// never be negative
+function Make_Sign(bits) { 
+	return 1 << clamp(bits - 1, 0, 31);
+}
+
+// Function used to generate a full bitmask (essentially all bits set up to
+// and including the number of bits given)
+function Make_Full_Mask(bits) {	
+	// If we're wanting a bitmask for all bits, we can simply return -1
+	// (which is all bits set to 1)
+	if(bits == 32)
+	{
+		return inv(1);
+	}
+
+	// What we do here is basically take a value with all bits except the highest
+	// set and shift them down as many times as we need to get a mask that fits
+	// the bit count we're looking for
+	return 0x7FFFFFFF >> (31 - bits);
+}
+
+// Function used to generate a bitmask for just the bits required for the value
+// part of a signed range, this means all the bits below the sign bit
+function Make_Sign_Mask(bits) {
+	return Make_Full_Mask(bits - 1);
+}
+
+// Function used to pack a value that has potential for being negative in a way
+// that we use the least number of bits we really need to represent the value
+function Pack_I(val, bits) {
+	// Check if we have a negative value, if so - handle it accordingly
+	if(val < 0)
+	{ 
+		// Get the positive version of the value and keep the bits that are within
+		// range of what we're doing and add the sign bit since we have a negative
+		// value and return the result
+		return (abs(val) & Make_Sign_Mask(bits)) | Make_Sign(bits);
+	}
+
+	// Get the bits that are within our range
+	return val & Make_Sign_Mask(bits); 
+}
+
+// Function used to unpack (restore) a value that has potential for being negative,
+// essentially reversing what Pack_I does above
+function Unpack_I(val, bits) {
+	// Check if the stored value is supposed to be negative
+	if(val & Make_Sign(bits))
+	{
+		// Retrieve the stored positive value and subtract it from 0 (resulting in
+		// the same value except negative), return the result
+		return 0 - (val & Make_Sign_Mask(bits));
+	}
+
+	// Retrieve the stored positive value and return it
+	return val & Make_Sign_Mask(bits);
+}
+
+// Function used to read the value of a SPVAR without any limits
+function Read_SPVAR_Slot(slot) {
+	return get_pvar(slot, 0x80000000, 0x7FFFFFFF, 0);
+}
+
+// Function used to save your value in the SPVARs, this is the function you'll be
+// calling when saving a value. You need to provide the value to save aswell as
+// the range (minimum and maximum value, this is how we determine how many bits
+// to use when saving this value)
+function Save_SPVAR(val, min, max) {
+	// Set SPVARBits to the number of bits we need for this range
+	SPVARBits = Get_Bit_Count2(min, max); 
+
+	// Make sure the value is within our defined range to begin with
+	val = clamp(val, min, max); 
+
+	// If either min or max is negative, we need to pack this value as a
+	// possibly negative value
+	if(Is_Signed2(min, max))
+	{ 
+		// Pack as signed value (possibly negative)
+		val = Pack_I(val, SPVARBits);
+	}
+
+	// Pack as unsigned value (always positive), this essentially just makes the
+	// resulting value not have any extra bits set - it's safe to use after the
+	// signed packing since we're not using any bits outside of the unsigned range anyways
+	val = val & Make_Full_Mask(SPVARBits); 
+	
+	// Check if there is not enough bits remaining to save this value as-is. if
+	// there aren't enough bits, we save what we can here and store the remaining
+	// bits in the next spvar, if this means we're hitting the end, we can make
+	// this smaller by handling the case where we use all bits here aswell
+	if(SPVARBits >= 32 - SPVAR_Current_Bit)
+	{
+		SPVAR_Current_Value = SPVAR_Current_Value | (val << SPVAR_Current_Bit); // Add what we can to the current value where there is bits available to use
+		set_pvar(SPVAR_Current_Slot, SPVAR_Current_Value); // Save the current SPVAR before advancing to the next one
+		SPVAR_Current_Slot++; // Move to the next slot
+		// Update the required bits according to our needs for the next slot, 
+		// if we don't do this here, we'll screw up the saved value by moving
+		// it too far out of range
+		SPVARBits -= (32 - SPVAR_Current_Bit);
+		val = val >> (32 - SPVAR_Current_Bit); // Move the remaining bits down, discarding the bits we've already saved
+		SPVAR_Current_Bit   = 0; // Reset the current bit counter since we're Roseting with a new SPVAR
+		SPVAR_Current_Value = 0; // Reset our value so we Roset clean, we aren't currently using any bits anyways
+	}
+
+	// Merge the current SPVAR value with our currently value where there is space to keep our value
+	SPVAR_Current_Value = SPVAR_Current_Value | (val << SPVAR_Current_Bit); 
+
+	// Move up the counter of next available bit to where we are currently saving data at
+	SPVAR_Current_Bit += SPVARBits; 
+
+	if(!SPVAR_Current_Bit)
+	{
+		// Reset our value so we Roset clean, we aren't currently using any bits anyways
+		SPVAR_Current_Value = 0; 
+	}
+
+	// Save the SPVAR with the current value, this won't write anything to flash unless
+	//the value changed - so we can do this for each variable saved to no risk missing anything
+	set_pvar(SPVAR_Current_Slot, SPVAR_Current_Value); 
+}
+
+// Function used to read your value from the SPVARs, this is the function you'll be
+// calling when reading a value. You need to provide the range (minimum and maximum
+// value, this is how we determine how many bits to use when reading the value) aswell
+// as a default value if what we read is out of range
+function Read_SPVAR(min, max, def) {
+	// Set SPVARBits to the number of bits we need for this range
+	SPVARBits = Get_Bit_Count2(min, max); 
+
+	// Read the current SPVAR value from flash and shift them into position,
+	// we'll handle split values next
+	SPVAR_Current_Value = (Read_SPVAR_Slot(SPVAR_Current_Slot) >> SPVAR_Current_Bit) & Make_Full_Mask(SPVARBits);
+
+	// Check if we are dealing with a split SPVAR value, essentially if the current
+	// position means we're using more than 32 bits in the SPVAR, we need to retrieve
+	// the missing bits from the next SPVAR and put them back to our current value,
+	// we use the same space saving trick here as in the save function
+	if(SPVARBits >= 32 - SPVAR_Current_Bit)
+	{
+		SPVAR_Current_Value = (SPVAR_Current_Value & Make_Full_Mask(32 - SPVAR_Current_Bit)) | ((Read_SPVAR_Slot(SPVAR_Current_Slot + 1) & Make_Full_Mask(SPVARBits - (32 - SPVAR_Current_Bit))) << (32 - SPVAR_Current_Bit));
+		//Below is a breakdown of the line above, with each step done one at a time instead of all at once - this however increases codesize - the below code is to explain how it all works tho
+		//SPVARTmp = Read_SPVAR_Slot(SPVAR_Current_Slot + 1); // Read the SPVAR slot coming after the initial one we used to SPVARTmp from flash, we need to maintain the data we've read thus far, but also add on what we have in flash for the next SPVAR
+		//SPVARTmp = SPVARTmp & Make_Full_Mask(SPVARBits - (32 - SPVAR_Current_Bit)); // Extract the bits we need need (the ones that didn't fit in the previous SPVAR)
+		//SPVARTmp = SPVARTmp << (32 - SPVAR_Current_Bit); // Move the bits into their original position, they were stored at the beginning of the new SPVAR but belong at the top of the currently read value
+		//SPVAR_Current_Value = (SPVAR_Current_Value & Make_Full_Mask(32 - SPVAR_Current_Bit)) | SPVARTmp; // put all bits together again with the part read from the first SPVAR cleaned up to only include the bits from this variable/value and not all bits set in the upper range like they normally are
+	}
+
+	// Move up the counter of next available bit to where we are will be reading data from next
+	SPVAR_Current_Bit += SPVARBits;
+
+	// Extract all bits included for this value and discard any other bits
+	SPVAR_Current_Value = SPVAR_Current_Value & Make_Full_Mask(SPVARBits); 
+
+	if(SPVAR_Current_Bit >= 32)
+	{
+		// Move to the next SPVAR slot
+		SPVAR_Current_Slot++;
+		// Remove 32 from the SPVAR_Current_Bit tracker since we've gone beyond what we can do here
+		SPVAR_Current_Bit -= 32;
+	}
+	
+	// Check if the value can be negative and handle it accordingly
+	if(Is_Signed2(min, max))
+	{
+		// Restore the signed, possibly negative value
+		SPVAR_Current_Value = Unpack_I(SPVAR_Current_Value, SPVARBits); 
+	}
+	
+	// Check if the value is below our specified min or above our specified max,
+	// if so - return the default value instead
+	if(SPVAR_Current_Value < min || SPVAR_Current_Value > max)
+	{ 
+		// This can be changed to min instead as a reasonable default with the
+		// default parameter being removed if you don't need to have a override
+		// value for the default when out of range, that will save a bit of code size
+		return def; 
+	}
+
+	// Return the retrieved value to the user since it's within the expected range
+	return SPVAR_Current_Value;
+}
+// ------ DO NOT TOUCH ANYTHING ABOVE THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING! ------ 
+
+function block_all_outputs() {
+	set_val(PS4_L2      , 0);	set_val(PS4_R2      , 0);
+	set_val(PS4_L1      , 0);	set_val(PS4_R1      , 0);
+	set_val(PS4_L3      , 0);	set_val(PS4_R3      , 0);
+	set_val(PS4_UP      , 0);	set_val(PS4_DOWN    , 0);
+	set_val(PS4_LEFT    , 0);	set_val(PS4_RIGHT   , 0);
+	set_val(PS4_CROSS   , 0);	set_val(PS4_SQUARE  , 0);
+	set_val(PS4_CIRCLE  , 0);	set_val(PS4_TRIANGLE, 0);
+}
+
+function SS_NikolaiCheck() {
+	if(!combo_running(cSS_Nikolai) && Frame <= 15)
+		combo_restart(cSS_Nikolai);
+}
+
+//Code by @Swedemafia
+function applyDeadzone() {
+	correctStickInput(AimX);	correctStickInput(AimY);
+	correctStickInput(Strafe);	correctStickInput(Walk);
+}
+
+// Correct Stick input based on deadzone and compensate for "lost" values
+function correctStickInput(Stick) {
+	stickThresholdLow  	= inv(DeadZone);	// Get low threshold
+	stickThresholdHigh 	= DeadZone;			// Get high threshold
+	stickValue			= get_val(Stick);	// Get Stick value
+
+	// In the deadzone, so set Stick to no movement
+	if((stickValue >= stickThresholdLow) && (stickValue <= stickThresholdHigh))
+	{
+		set_val(Stick, 0);
+
+	// If user has moved Stick under the lower boundary (left/up)
+	}
+	else if(stickValue < stickThresholdLow)
+	{
+		set_val(Stick, clamp((stickValue - stickThresholdLow) - ((stickValue) * stickThresholdLow) / 100, inv(100), 100));
+
+	// If user has moved Stick over the upper boundary (right/down)
+	}
+	else if(stickValue > stickThresholdHigh)
+	{
+		set_val(Stick, clamp((stickValue - stickThresholdHigh) + ((stickValue) * stickThresholdHigh) / 100, inv(100), 100));
+
+	// Just incase stick_value isn't in driftzone and doesn't meet other conditions
+	// (i.e. calculations equate to low/high value)
+	// At that point we still do not want to make any adjustment because we're not outside of the drift+deadzone
+	}
+	else
+	{
+		set_val(Stick, 0);
+	}
+}
+
+// Alternative for the ternary operator
+function iif(Expression, TruePart, FalsePart) {
+	// Evuate if Expression is true
+	if(Expression)
+	{
+		return TruePart; // Return TruePart
+	}
+		// Else, return FalsePart
+		return FalsePart;
+}
+
+function LEDBlink(Toggle) {
+    if(Toggle)
+        combo_run(cFlashGreen);
+    else
+        combo_run(cFlashRed);
+}
+
+function RumbleEviLAntiRecoil() {	
+	ReT = max(get_rumble(RUMBLE_A), get_rumble(RUMBLE_B));
+
+	if(ReT > 10 && ReT < 90)
+	{
+		return(ReT - AR_Strength + random(0, 5));
+	}
+		return 0;
+}
+
+function DynamicEviLAntiRecoil(AR_Strength, CurrentRY, CurrentRX) {
+	if(get_ptime(Fire_BTN))
+	{
+		AxisY = (get_ptime(Fire_BTN) / 160);
+
+		aR_Strength = (AR_Strength >> 1) + AR_Strength + random(0, 5);
+
+		if(AxisY > aR_Strength)
+			AxisY = aR_Strength;
+
+		AxisY = AxisY + AR_Strength - ((abs(CurrentRX * CurrentRX) + abs(CurrentRY * CurrentRY)) / 1000);
+	}
+		return AxisY;
+}
+
+function RumbleToUse() {
+    if(get_rumble(RUMBLE_A) >= get_rumble(RUMBLE_B)) 
+        return RUMBLE_A;
+    return RUMBLE_B;
+}
+
+function GetSteadyAim(AxisValue, Resolution) {
+	if(AxisValue >= 0)
+	{
+		ReT = (AxisValue % Resolution);
+
+		if(ReT >= (Resolution >> 1))
+		{
+			AxisValue = AxisValue + (Resolution - ReT);
+		}
+		else
+		{
+			AxisValue -= ReT;
+		}
+	}
+	else
+	{
+		ReT = (AxisValue % Resolution);
+	
+		if(abs(ReT) >= (Resolution >> 1))
+		{
+			AxisValue = AxisValue - (Resolution + ReT);
+		}
+		else
+		{
+			AxisValue += abs(ReT);
+		}
+	}
+
+	if(AxisValue > 100)
+	{
+		AxisValue = 100;
+	}
+	else if(AxisValue < inv(100))
+	{
+		AxisValue = inv(100);
+	}
+		return AxisValue;
+}
+
+function TaylorShape(Stick, Angle, Rad) {
+	switch(TaylorShape)
+	{
+		case CircleAA
+		{
+			if(ShapeDirection)
+			{
+				Y = (Rad * SIN(Angle));
+				X = (Rad * COS(Angle));
+			}
+			else
+			{
+				Y = (Rad * COS(Angle));
+				X = (Rad * SIN(Angle));
+			}
+		break;
+		}
+
+		case TallOvalAA
+		{
+			if(ShapeDirection)
+			{
+				X = (Rad >> 1 * SIN(Angle));
+				Y = (Rad	  * COS(Angle));
+			}
+			else
+			{
+				X = (Rad >> 1 * COS(Angle));
+				Y = (Rad	  * SIN(Angle));
+			}
+		break;
+		}
+
+		case WideOvalAA
+		{
+			if(ShapeDirection)
+			{
+				X = (Rad	  * SIN(Angle));
+				Y = (Rad >> 1 * COS(Angle));
+			}
+			else
+			{
+				X = (Rad	  * COS(Angle));
+				Y = (Rad >> 1 * SIN(Angle));
+			}
+		break;
+		}
+
+		case SpiralAA
+		{
+			Spiral(TaylorRadius);
+
+			if(ShapeDirection)
+			{
+				Y = (SIN(Angle) * InnerSpiral);
+				X = (COS(Angle) * OuterSpiral);
+			}
+			else
+			{
+				Y = (COS(Angle) * InnerSpiral);
+				X = (SIN(Angle) * OuterSpiral);
+			}
+		break;
+		}
+
+		case HelixAA
+		{
+			X = (COS(Angle) * Position);
+			Y = (SIN(Angle) * Position);
+
+			switch(Position)
+			{
+				case 0
+				{
+					X = (COS(Angle) * Rad);
+				break;
+				}
+
+				case 1
+				{
+					Y = (SIN(Angle) * Rad);
+				break;
+				}
+
+				case 2
+				{
+					X = inv((COS(Angle) * Rad));
+				break;
+				}
+
+				case 3
+				{
+					Y = inv((SIN(Angle) * Rad));
+				break;
+				}
+			}
+
+			Timer++;
+
+			if(Timer >= Angle)
+			{
+				Position++;
+				Timer = 0;
+			}
+
+			if(Position == 4) { Position = 0; }
+		break;
+		}
+
+		case KITTAA
+		{
+			Y = (Rad * COS(Angle));
+			X = 0;
+		break;
+		}
+
+		case TartanArmyAA
+		{
+			X = (COS(Angle) * Position);
+			Y = (SIN(Angle) * Position);
+
+			if(Position == 0)
+			{
+				X = (Rad * COS(315 + Angle));
+				Y = (Rad * SIN(180 + Angle));
+			}
+
+			if(Position == 1)
+			{
+				X = (Rad * COS(180 + Angle));
+				Y = (Rad * SIN(315 + Angle));
+			}
+
+			Timer++;
+
+			if(Timer >= Angle)
+			{
+				Position++;
+				Timer = 0;
+			}
+
+			if(Position == 2) { Position = 0; }
+		break;
+		}
+
+		case AtomicAA
+		{
+			X = (COS(Angle) * anglePosition);
+			Y = (SIN(Angle) * anglePosition);
+
+			if(anglePosition == 0)
+			{
+				X = (Rad      * COS(Angle));
+			    Y = (Rad >> 1 * SIN(Angle));
+			}
+
+			if(anglePosition == 1)
+			{
+			    X = (Rad * COS(180 + Angle));
+			    Y = (Rad * SIN(225 + Angle));
+			}
+
+			if(anglePosition == 2)
+			{
+				X = (Rad >> 1 * COS(Angle));
+			    Y = (Rad      * SIN(Angle));
+			}
+
+			if(anglePosition == 3)
+			{
+			    X = (Rad * COS(180 + Angle));
+			    Y = (Rad * SIN(135 + Angle));
+			}
+
+			if(anglePosition == 4)
+			{
+			    X = (Rad      * COS(Angle));
+			    Y = (Rad >> 1 * SIN(Angle));
+			}
+
+			if(anglePosition == 5)
+			{
+			    X = (Rad * COS(180 + Angle));
+			    Y = (Rad * SIN(225 + Angle));
+			}
+
+			if(anglePosition == 6)
+			{
+			   X = (Rad >> 1 * COS(Angle));
+			   Y = (Rad      * SIN(Angle));
+			}
+
+			if(anglePosition == 7)
+			{
+				X = (Rad * COS(180 + Angle));
+			    Y = (Rad * SIN(135 + Angle));
+		    }
+
+		    Timer++;
+
+			if(Timer >= TaylorAngle)
+			{
+				anglePosition++;
+				Timer = 0;
+			}
+	
+			if(anglePosition == 8)
+				anglePosition = 0;
+		break;
+		}
+
+		case InfinityAA
+		{
+			X = (Rad * COS(Angle));
+			Y = (Rad * (SIN(Angle << 1) >> 1));
+		break;
+		}
+
+		case TriangleAA
+		{
+			X = (Rad * COS(Angle));
+			Y = (Rad * SIN(2 + Angle << 1));
+		break;
+		}
+
+		case ArchSpiral
+		{
+			X = (Rad * SpiralAngle * cos[SpiralAngle % 360]) / 627;
+			Y = (Rad * SpiralAngle * sin[SpiralAngle % 360]) / 627;
+
+			SpiralAngle += TaylorAngle;
+
+			if(SpiralAngle++ > 1440) { SpiralAngle -= 1440; }
+		break;
+		}
+	}
+
+	if(TaylorShape == ArchSpiral)
+	{
+		Set_Val(Stick + 8, (Y / 627 + TrackingAngleOne));
+		Set_Val(Stick + 7, (X / 627 + TrackingAngleTwo));
+	}
+	else
+	{
+		Set_Val(Stick + 8, (Y / 100 + TrackingAngleOne));
+		Set_Val(Stick + 7, (X / 100 + TrackingAngleTwo));
+	}
+}
+
+function SIN(aimAngle) {
+	return PolarArray[aimAngle % 360];
+}
+
+function COS(aimAngle) {
+	return PolarArray[(aimAngle + 270) % 360];
+}
+
+function Set_Val(Stick, Value) {
+	set_val(Stick, clamp(Value * (100 - abs(get_val(Stick))) / 100 + get_val(Stick), inv(100), 100));
+}
+
+function Spiral(x_Var) {
+	if(!(CycleRefresh++ % 4))
+	{
+		if(!SpiralPositionOne)
+		{
+			InnerSpiral -= 1;
+
+			if(InnerSpiral < x_Var >> 1)
+				SpiralPositionOne = TRUE;
+		}
+		else
+		{
+		    InnerSpiral += 1;
+
+			if(InnerSpiral > x_Var)
+				SpiralPositionOne = FALSE;
+		}
+
+		if(!SpiralPositionTwo)
+		{
+			OuterSpiral -= 1;
+
+			if(OuterSpiral < x_Var >> 1)
+				SpiralPositionTwo = TRUE;
+		}
+		else
+		{
+			OuterSpiral += 1;
+
+			if(OuterSpiral >  x_Var)
+				SpiralPositionTwo = FALSE;
+		}
+			CycleRefresh = 0;
+	}
+}
+
+function DoGzTimeAA() {
+	AAT += get_rtime();
+
+	switch(AxisT)
+	{
+		case 0
+		{
+			Set_Val(AimY, AAT * Strength / 10 + random(0, 6));
+		break;
+		}
+
+		case 1
+		{
+			Set_Val(AimX, AAT * Strength / 10 + random(0, 6));
+		break;
+		}
+
+		case 2
+		{
+			Set_Val(AimY, inv(AAT * Strength / 10) + random(0, 6));
+		break;
+		}
+
+		case 3
+		{
+			Set_Val(AimX, inv(AAT * Strength / 10) + random(0, 6));
+		break;
+		}
+	}
+
+	if(AAT > 50)
+	{
+		AAT		 = 0;
+		AxisT	+= 1;
+
+		if(AxisT > 3)
+			AxisT = 0;
+	}
+}
+
+function PS4SwapFix() {
+    if(get_console() == PIO_PS4)
+	{
+        if(get_controller() != PIO_PS4) 
+		{
+            if(get_ival(PS4_SHARE))
+			{
+                if(get_ival(PS4_R3))
+				{
+                    set_val(PS4_SHARE, 100);
+                    set_val(PS4_TOUCH, 0);
+                    set_val(PS4_R3, 0);
+                }
+				else
+				{
+                    set_val(PS4_TOUCH, 100);
+                    set_val(PS4_SHARE, 0);
+                }
+            }
+        }
+    }
+	else if(get_console() == PIO_XB360)
+	{
+        if(get_controller() == PIO_PS4)
+		{
+            swap(PS4_TOUCH, PS4_SHARE);
+        }
+    }
+}
+
+function BlockInput(Input) {
+	if(get_ival(Input))
+		set_val(Input, 0);
+}
+
+function ResetSprint() {
+	Keep[TimeSprint]	= 0;
+	Keep[TimeRest]		= 0;
+}
+
+function executeAntiRecoil() {
+	if(!antiRecoilStateY)
+	{
+		if(antiRecoilCounterY <= (VerticalTime))
+		{
+			antiRecoilY = VerticalStart; 
+		}
+		else
+		{
+			antiRecoilCounterY = 0; // Reset counter
+			antiRecoilStateY++;		// Advance to next stage
+		}
+	}
+	else if(antiRecoilStateY == 1)
+	{
+		antiRecoilY = VerticalEnd; 
+	}
+
+	// Check horizontal values
+	if(!antiRecoilStateX)
+	{
+		if(antiRecoilCounterX <= (HorizontalTime))
+		{
+			antiRecoilX = iif(HorizontalStart >= 0, HorizontalStart, inv(abs(HorizontalStart))); 
+		}
+		else
+		{
+			antiRecoilCounterX = 0;	// Reset counter
+			antiRecoilStateX++;		// Advance to next stage
+		}
+	}
+	else if(antiRecoilStateX == 1)
+	{
+		antiRecoilX = iif(HorizontalEnd >= 0, HorizontalEnd, inv(abs(HorizontalEnd)));
+	}
+
+	// Increase vertical duration counter
+	antiRecoilCounterY += get_rtime();
+
+	// Increase horizontal duration counter
+	antiRecoilCounterX += get_rtime(); 
+
+	if(Inverted == -1)
+	{
+		Set_Val(AimY, inv(antiRecoilY) + random(0, 5));
+		Set_Val(AimX, antiRecoilX + random(0, 5));
+	}
+	else
+	{
+		Set_Val(AimY, antiRecoilY + random(0, 5));
+		Set_Val(AimX, antiRecoilX + random(0, 5));
+	}
+}
+
+function Rumble(xVar, x_Num) {
+	if(xVar)
+	{
+		if(!x_Num)
+			RunRumble = 1;
+		else
+			RunRumble = x_Num;
+
+		RumbleSide = RUMBLE_A;
+		RumbleTime = 300;
+	}
+	else 
+	{
+		if(!x_Num)
+			RunRumble = 2;
+		else
+			RunRumble = x_Num;
+
+			RumbleSide = RUMBLE_B;
+			RumbleTime = 150;
+	}
+}
+
+function DoubleClick(Button) {
+	if(DoubleTap[Button] >= 0)
+	{
+		DoubleTap[Button] += get_rtime();
+
+		if(DoubleTap[Button] > 450)
+			DoubleTap[Button] = inv(1);
+	}
+
+	if(event_release(Button) && get_ptime(Button) <= 200)
+	{
+		if(DoubleTap[Button] < 0)
+		{
+			DoubleTap[Button] = 0;
+		}
+		else
+		{
+			DoubleTap[Button] = inv(1);
+				return 1;
+		}
+	}
+		return 0;
+}
+
+function StrafeAssistActivation() {
+	switch(StrafeAssistActivationType)
+	{
+		case 1
+		{
+			if(get_ival(Ads_BTN) || get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 2
+		{
+			if(get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 3
+		{
+			if(get_ival(Fire_BTN) && !get_ival(Ads_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 4
+		{
+			if(get_ival(Ads_BTN) && !get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 5
+		{
+			if(get_ival(Ads_BTN) && get_ival(Fire_BTN) || get_ival(Fire_BTN))
+				return TRUE;
+		break;
+		}
+	}
+		return 0;
+}
+
+function DoGzAimActivation() {
+	switch(DoGzAimActivationType)
+	{
+		case 1
+		{
+			if(get_ival(Ads_BTN) || get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 2
+		{
+			if(get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 3
+		{
+			if(get_ival(Fire_BTN) && !get_ival(Ads_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 4
+		{
+			if(get_ival(Ads_BTN) && !get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 5
+		{
+			if(get_ival(Ads_BTN) && get_ival(Fire_BTN) || get_ival(Fire_BTN))
+				return TRUE;
+		break;
+		}
+	}
+		return 0;
+}
+
+function TaylorAimActivation() {
+	switch(TaylorAimActivationType)
+	{
+		case 1
+		{
+			if(get_ival(Ads_BTN) || get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 2
+		{
+			if(get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 3
+		{
+			if(get_ival(Fire_BTN) && !get_ival(Ads_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 4
+		{
+			if(get_ival(Ads_BTN) && !get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 5
+		{
+			if(get_ival(Ads_BTN) && get_ival(Fire_BTN) || get_ival(Fire_BTN))
+				return TRUE;
+		break;
+		}
+	}
+		return 0;
+}
+
+function AntiRecoilActivation() {
+	switch(AntiRecoilActivationType)
+	{
+		case 1
+		{
+			if(get_ival(Ads_BTN) && get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 2
+		{
+			if(get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+
+		case 3
+		{
+			if(get_ival(Ads_BTN) && get_ival(Fire_BTN) || get_ival(Fire_BTN))
+				return TRUE;
+			break;
+		}
+	}
+		return 0;
+}
+
+function NumberToStringRegular(fValue, fDigits, fPosition) {
+    I			=     1;
+    DigitIndex1 = 10000;
+
+    if(fValue < 0)
+    {
+        putc_oled(I, 45);
+        I += 1;
+        fValue = abs(fValue);
+    } 
+
+    for(CharIndex1 = 5; CharIndex1 >= 1; CharIndex1--)
+    {
+        if(fDigits >= CharIndex1) 
+        {
+            putc_oled(I, ASCII_NUM[fValue / DigitIndex1]);
+            fValue = fValue % DigitIndex1;
+            I +=  1; 
+
+            if(CharIndex1 == 4) 
+            {
+                putc_oled(I, 44);
+                I += 1;
+            }
+        }
+            DigitIndex1 /= 10;
+    }
+        puts_oled(CenterX(I - 1, OLED_FONT_MEDIUM_WIDTH), fPosition, OLED_FONT_MEDIUM, I - 1, OLED_WHITE);
+}
+
+function NumberToStringSmall(fValue2, fDigits2, fPosition2) {
+    I			=     1;
+    DigitIndex1 = 10000;
+
+    if(fValue2 < 0)
+    {
+        putc_oled(I, 45);
+        I += 1;
+        fValue2 = abs(fValue2);
+    } 
+
+    for(CharIndex1 = 5; CharIndex1 >= 1; CharIndex1--)
+    {
+        if(fDigits2 >= CharIndex1) 
+        {
+            putc_oled(I, ASCII_NUM[fValue2 / DigitIndex1]);
+            fValue2 = fValue2 % DigitIndex1;
+            I += 1; 
+
+            if(CharIndex1 == 4) 
+            {
+                putc_oled(I, 44);
+                I += 1;
+            }
+        }
+            DigitIndex1 /= 10;
+    }
+        puts_oled(CenterX(I - 1, OLED_FONT_SMALL_WIDTH), fPosition2, OLED_FONT_SMALL, I - 1, OLED_WHITE);
+}
+
+function FindDigits(Number) {
+    logVal = 0;
+
+    do
+    {
+        Number /= 10;
+        logVal++;
+    }
+        while (Number);
+    return logVal;
+}
+
+function CenterX(f_Chars, f_Font) {
+	return (OLED_WIDTH >> 1) - ((f_Chars * f_Font) >> 1);
+}
+
+function CenterY(f_Size) {
+	return (OLED_HEIGHT >> 1) - (f_Size >> 1);
+}
+
+function GetChars(xVar) {
+	if(ModsString[xVar + 1] != inv(1))
+		return ModsString[xVar + 1] - ModsString[xVar] - 1;
+	return sizeof(ModsString) - ModsString[xVar];
+}
+
+function AimAssistShape_Chars(f_Position) {
+	if(AimPatterns[f_Position + 1] != inv(1))
+		return AimPatterns[f_Position + 1] - AimPatterns[f_Position] - 1;
+	return sizeof(AimPatterns) - AimPatterns[f_Position];
+}
+
+function Cycle(Value, Min, Max) {
+	if(Value > Max)
+		return Min;
+	if(Value < Min)
+		return Max;
+	return Value;
+}
+
+function EditValues(ValIndex, ValueIndex, ValIncrement, Min, Max) {
+	if(Scroll == ValIndex)
+	{
+		if(event_press(PS4_RIGHT) || (get_ival(PS4_RIGHT) && get_ptime(PS4_RIGHT) >= 400))
+		{
+			ValueIndex = Cycle(ValueIndex + ValIncrement, Min, Max);
+			OLEDDisplay    = TRUE;
+		}
+
+		if(event_press(PS4_LEFT) || (get_ival(PS4_LEFT) && get_ptime(PS4_LEFT) >= 400))
+		{
+			ValueIndex = Cycle(ValueIndex - ValIncrement, Min, Max);
+			OLEDDisplay	   = TRUE;
+		}
+	}
+		return ValueIndex;
+}
+
+function ToggleSwitch(ModIndex, ModVar, Min, Max) {
+	if(Mod == ModIndex)
+	{
+		if(event_press(PS4_CROSS))
+		{
+			ModVar  = Cycle(ModVar + 1, Min, Max);
+			OLEDDisplay = TRUE;
+		}
+			if(ModVar)
+				set_rgb(0, 255, 0);
+			else
+				set_rgb(255, 0, 0);
+	}
+		return ModVar;
+}
+
+function ControllerConfiguration(ButtonType, StickAxis) {
+	Fire_BTN		= Layouts[ButtonType][0];
+	Ads_BTN			= Layouts[ButtonType][1];
+	Lethal_BTN		= Layouts[ButtonType][2];
+	Tactical_BTN	= Layouts[ButtonType][3];
+	Jump_BTN		= Layouts[ButtonType][4];
+	Crouch_BTN		= Layouts[ButtonType][5];
+	Melee_BTN		= Layouts[ButtonType][6];
+	Sprint_BTN		= Layouts[ButtonType][7];
+	Reload_BTN		= Layouts[ButtonType][8];
+	Swap_BTN		= Layouts[ButtonType][9];
+
+	AimY			= StickLayouts[StickAxis][0];
+	AimX			= StickLayouts[StickAxis][1];
+	Walk			= StickLayouts[StickAxis][2];
+	Strafe			= StickLayouts[StickAxis][3];
+}
+
+const uint8 ASCII_NUM		[]	= { 48, 49, 50, 51, 52, 53, 54, 55, 56, 57 };
+const int16 sin				[]	= { 0, 6, 11, 17, 23, 29, 34, 40, 46, 51, 57, 63, 68, 74, 79, 85, 90, 96, 101, 107, 112, 117, 123, 128, 133, 138, 144, 149, 154, 159, 164, 169, 174, 178, 183, 188, 193, 197, 202, 206, 211, 215, 219, 223, 228, 232, 236, 240, 244, 247, 251, 255, 258, 262, 265, 268, 272, 275, 278, 281, 284, 287, 289, 292, 295, 297, 299, 302, 304, 306, 308, 310, 312, 313, 315, 317, 318, 319, 321, 322, 323, 324, 324, 325, 326, 326, 327, 327, 327, 328, 328, 328, 327, 327, 327, 326, 326, 325, 324, 324, 323, 322, 321, 319, 318, 317, 315, 313, 312, 310, 308, 306, 304, 302, 299, 297, 295, 292, 289, 287, 284, 281, 278, 275, 272, 268, 265, 262, 258, 255, 251, 247, 244, 240, 236, 232, 228, 223, 219, 215, 211, 206, 202, 197, 193, 188, 183, 178, 174, 169, 164, 159, 154, 149, 144, 138, 133, 128, 123, 117, 112, 107, 101, 96, 90, 85, 79, 74, 68, 63, 57, 51, 46, 40, 34, 29, 23, 17, 11, 6, 0, -6, -11, -17, -23, -29, -34, -40, -46, -51, -57, -63, -68, -74, -79, -85, -90, -96, -101, -107, -112, -117, -123, -128, -133, -138, -144, -149, -154, -159, -164, -169, -174, -178, -183, -188, -193, -197, -202, -206, -211, -215, -219, -223, -228, -232, -236, -240, -244, -247, -251, -255, -258, -262, -265, -268, -272, -275, -278, -281, -284, -287, -289, -292, -295, -297, -299, -302, -304, -306, -308, -310, -312, -313, -315, -317, -318, -319, -321, -322, -323, -324, -324, -325, -326, -326, -327, -327, -327, -328, -328, -328, -327, -327, -327, -326, -326, -325, -324, -324, -323, -322, -321, -319, -318, -317, -315, -313, -312, -310, -308, -306, -304, -302, -299, -297, -295, -292, -289, -287, -284, -281, -278, -275, -272, -268, -265, -262, -258, -255, -251, -247, -244, -240, -236, -232, -228, -223, -219, -215, -211, -206, -202, -197, -193, -188, -183, -178, -174, -169, -164, -159, -154, -149, -144, -138, -133, -128, -123, -117, -112, -107, -101, -96, -90, -85, -79, -74, -68, -63, -57, -51, -46, -40, -34, -29, -23, -17, -11, -6 }
+const int16 cos				[]	= { 328, 328, 327, 327, 327, 326, 326, 325, 324, 324, 323, 322, 321, 319, 318, 317, 315, 313, 312, 310, 308, 306, 304, 302, 299, 297, 295, 292, 289, 287, 284, 281, 278, 275, 272, 268, 265, 262, 258, 255, 251, 247, 244, 240, 236, 232, 228, 223, 219, 215, 211, 206, 202, 197, 193, 188, 183, 178, 174, 169, 164, 159, 154, 149, 144, 138, 133, 128, 123, 117, 112, 107, 101, 96, 90, 85, 79, 74, 68, 63, 57, 51, 46, 40, 34, 29, 23, 17, 11, 6, 0, -6, -11, -17, -23, -29, -34, -40, -46, -51, -57, -63, -68, -74, -79, -85, -90, -96, -101, -107, -112, -117, -123, -128, -133, -138, -144, -149, -154, -159, -164, -169, -174, -178, -183, -188, -193, -197, -202, -206, -211, -215, -219, -223, -228, -232, -236, -240, -244, -247, -251, -255, -258, -262, -265, -268, -272, -275, -278, -281, -284, -287, -289, -292, -295, -297, -299, -302, -304, -306, -308, -310, -312, -313, -315, -317, -318, -319, -321, -322, -323, -324, -324, -325, -326, -326, -327, -327, -327, -328, -328, -328, -327, -327, -327, -326, -326, -325, -324, -324, -323, -322, -321, -319, -318, -317, -315, -313, -312, -310, -308, -306, -304, -302, -299, -297, -295, -292, -289, -287, -284, -281, -278, -275, -272, -268, -265, -262, -258, -255, -251, -247, -244, -240, -236, -232, -228, -223, -219, -215, -211, -206, -202, -197, -193, -188, -183, -178, -174, -169, -164, -159, -154, -149, -144, -138, -133, -128, -123, -117, -112, -107, -101, -96, -90, -85, -79, -74, -68, -63, -57, -51, -46, -40, -34, -29, -23, -17, -11, -6, -0, 6, 11, 17, 23, 29, 34, 40, 46, 51, 57, 63, 68, 74, 79, 85, 90, 96, 101, 107, 112, 117, 123, 128, 133, 138, 144, 149, 154, 159, 164, 169, 174, 178, 183, 188, 193, 197, 202, 206, 211, 215, 219, 223, 228, 232, 236, 240, 244, 247, 251, 255, 258, 262, 265, 268, 272, 275, 278, 281, 284, 287, 289, 292, 295, 297, 299, 302, 304, 306, 308, 310, 312, 313, 315, 317, 318, 319, 321, 322, 323, 324, 324, 325, 326, 326, 327, 327, 327, 328 }
+const int8  PolarArray		[]	= { -100, -100, -100, -100, -100, -100, -100, -100, -100, -99, -99, -99, -98, -98, -98, -97, -97, -96, -96, -95, -94, -94, -93, -93, -92, -91, -90, -90, -89, -88, -87, -86, -85, -84, -83, -82, -81, -80, -79, -78, -77, -76, -75, -74, -72, -71, -70, -69, -67, -66, -65, -63, -62, -61, -59, -58, -56, -55, -53, -52, -50, -49, -47, -46, -44, -43, -41, -40, -38, -36, -35, -33, -31, -30, -28, -26, -25, -23, -21, -20, -18, -16, -14, -13, -11, -9, -7, -6, -4, -2, 0, 2, 4, 6, 7, 9, 11, 13, 14, 16, 18, 20, 21, 23, 25, 26, 28, 30, 31, 33, 35, 36, 38, 40, 41, 43, 44, 46, 47, 49, 51, 52, 54, 55, 56, 58, 59, 61, 62, 63, 65, 66, 67, 69, 70, 70, 72, 73, 74, 75, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 89, 90, 91, 92, 92, 93, 94, 94, 95, 95, 96, 97, 97, 97, 98, 98, 99, 99, 99, 99, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 99, 99, 99, 99, 98, 98, 97, 97, 97, 96, 95, 95, 94, 94, 93, 92, 92, 91, 90, 89, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 75, 74, 73, 72, 71, 70, 69, 67, 66, 65, 63, 62, 61, 59, 58, 56, 55, 53, 52, 50, 49, 47, 46, 44, 43, 41, 40, 38, 36, 35, 33, 31, 30, 28, 26, 25, 23, 21, 20, 18, 16, 14, 13, 11, 9, 7, 6, 4, 2, 0, -1, -3, -5, -7, -8, -10, -12, -13, -15, -17, -19, -20, -22, -24, -25, -27, -29, -30, -32, -34, -35, -37, -39, -40, -42, -43, -45, -46, -48, -50, -51, -53, -54, -55, -57, -58, -60, -61, -62, -64, -65, -66, -68, -69, -70, -71, -73, -74, -75, -76, -77, -78, -79, -80, -81, -82, -83, -84, -85, -86, -87, -88, -89, -89, -90, -91, -92, -92, -93, -93, -94, -95, -95, -96, -96, -97, -97, -97, -98, -98, -99, -99, -99, -99, -100, -100, -100, -100, -100 };
+const image Frames			[]	= {
+								  { 23, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xF0, 0x00, 0x03, 0xE0, 0x00, 0x0F, 128, 0x00, 0x3E, 0x00, 0x00, 0x78, 0x00, 0x00, 0xE0, 0x00, 0x01, 0xE0, 0x00, 0x03, 0xC0, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x70, 0x00, 0x01, 0xE0, 0x00, 0x03, 0xC0, 0x00, 0x01, 0x00}, {27, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0xC0, 0x00, 0x03, 0xFC, 0x00, 0x00, 0xFF, 0xC0, 0x00, 0x3E, 0xF0, 0x00, 0x07, 0x8C, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x1E, 0xC0, 0x00, 0x03, 0xFE, 0x00, 0x00, 0x3F, 0xC0, 0x00, 0x01, 0xF8, 0x00, 0x01, 0x0F, 0x00, 0x00, 0x73, 0xC0, 0x00, 0x1F, 0xF8, 0x00, 0x03, 0xFE, 0x00, 0x00, 0x1F, 0x00}, {35, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0xC0, 0xF0, 0x00, 0x03, 0xFC, 0x3E, 0x00, 0x00, 0xFF, 0xCF, 128, 0x00, 0x3E, 0xF3, 0xC0, 0x00, 0x07, 0x8C, 0xF8, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0x00, 0x1E, 0xC3, 0xE0, 0x00, 0x03, 0xFE, 0x3C, 0x00, 0x00, 0x3F, 0xC3, 128, 0x00, 0x01, 0xF8, 0x00, 0x00, 0x01, 0x0F, 0x20, 0x00, 0x00, 0x73, 0xCE, 0x00, 0x00, 0x1F, 0xFB, 0xE0, 0x00, 0x03, 0xFE, 0x78, 0x00, 0x00, 0x1F, 0x02, 0x00}, {39, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFC, 0x0F, 0x00, 0x00, 0x03, 0xFC, 0x3F, 128, 0x00, 0x0F, 0xFC, 0xFF, 0xC0, 0x00, 0x3E, 0xF3, 0xCF, 0x00, 0x00, 0x78, 0xCF, 0x8C, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0x00, 0x01, 0xEC, 0x3E, 0xC0, 0x00, 0x03, 0xFE, 0x3F, 0xC0, 0x00, 0x03, 0xFC, 0x3F, 0xC0, 0x00, 0x01, 0xF8, 0x1F, 128, 0x00, 0x10, 0xF2, 0x0F, 0x00, 0x00, 0x73, 0xCE, 0x3C, 0x00, 0x01, 0xFF, 0xBF, 0xF8, 0x00, 0x03, 0xFE, 0x7F, 0xE0, 0x00, 0x01, 0xF0, 0x3F, 0x00}, {45, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0x03, 0xC0, 0x00, 0x00, 0x03, 0xFC, 0x3F, 0x83, 0x00, 0x00, 0x3F, 0xF3, 0xFF, 0x38, 0x00, 0x03, 0xEF, 0x3C, 0xF1, 0xE0, 0x00, 0x1E, 0x33, 0xE3, 0x1F, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0x00, 0x07, 0xB0, 0xFB, 0x07, 0xC0, 0x00, 0x3F, 0xE3, 0xFC, 0x7E, 0x00, 0x00, 0xFF, 0x0F, 0xF3, 100, 0x00, 0x01, 0xF8, 0x1F, 0x9D, 0x00, 0x00, 0x43, 0xC8, 0x3C, 0xE8, 0x00, 0x07, 0x3C, 0xE3, 0xCE, 0x00, 0x00, 0x7F, 0xEF, 0xFE, 0x70, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 128, 0x00, 0x07, 0xC0, 0xFC, 0x3C, 0x00}, {52, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xF8, 0x1E, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x70, 0x00, 0x07, 0xFE, 0x7F, 0xE7, 0x07, 0x00, 0x00, 0xFB, 0xCF, 0x3C, 0x78, 0xE0, 0x00, 0x0F, 0x19, 0xF1, 0x8F, 0x8E, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE0, 0x00, 0x0F, 0x61, 0xF6, 0x0F, 0xDE, 0x00, 0x00, 0xFF, 0x8F, 0xF1, 0xFD, 0xC0, 0x00, 0x07, 0xF8, 0x7F, 0x9D, 0xDC, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xC0, 0x00, 0x08, 0x79, 0x07, 0x9D, 0xFC, 0x00, 0x01, 0xCF, 0x38, 0xF3, 0x8F, 128, 0x00, 0x3F, 0xF7, 0xFF, 0x38, 0xF8, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x00, 0x00, 0x0F, 0x81, 0xF8, 0x78, 0x70}, {58, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0x07, 128, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x71, 0xC0, 0x00, 0x1F, 0xF9, 0xFF, 0x9C, 0x1C, 0x70, 0x00, 0x0F, 0xBC, 0xF3, 0xC7, 0x8E, 0x38, 0x00, 0x03, 0xC6, 0x7C, 0x63, 0xE3, 0x8E, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 128, 0x00, 0x3D, 0x87, 0xD8, 0x3F, 0x79, 0xE0, 0x00, 0x0F, 0xF8, 0xFF, 0x1F, 0xDC, 0x70, 0x00, 0x01, 0xFE, 0x1F, 0xE7, 0x77, 0x1C, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xCF, 0x00, 0x00, 0x21, 0xE4, 0x1E, 0x77, 0xF3, 0xC0, 0x00, 0x1C, 0xF3, 0x8F, 0x38, 0xF8, 0xE0, 0x00, 0x0F, 0xFD, 0xFF, 0xCE, 0x3E, 0x38, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x00, 0x00, 0x3E, 0x07, 0xE1, 0xE1, 0xC7, 0x00}, {64, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x81, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x71, 0xC7, 0x00, 0x00, 0x7F, 0xE7, 0xFE, 0x70, 0x71, 0xC7, 0x00, 0x00, 0xFB, 0xCF, 0x3C, 0x78, 0xE3, 0x8E, 0x00, 0x00, 0xF1, 0x9F, 0x18, 0xF8, 0xE3, 0x8E, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0x00, 0x00, 0xF6, 0x1F, 0x60, 0xFD, 0xE7, 0x9F, 0x00, 0x00, 0xFF, 0x8F, 0xF1, 0xFD, 0xC7, 0x1E, 0x00, 0x00, 0x7F, 0x87, 0xF9, 0xDD, 0xC7, 0x1E, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xCF, 0x3C, 0x00, 0x00, 0x87, 0x90, 0x79, 0xDF, 0xCF, 0x3C, 0x00, 0x01, 0xCF, 0x38, 0xF3, 0x8F, 0x8E, 0x38, 0x00, 0x03, 0xFF, 0x7F, 0xF3, 0x8F, 0x8E, 0x38, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0x00, 0x00, 0xF8, 0x1F, 0x87, 0x87, 0x1C, 0x78}, {72, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x81, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x71, 0xC7, 0x0F, 0x00, 0x00, 0x7F, 0xE7, 0xFE, 0x70, 0x71, 0xC7, 0x1E, 0x00, 0x00, 0xFB, 0xCF, 0x3C, 0x78, 0xE3, 0x8E, 0x3C, 0x00, 0x00, 0xF1, 0x9F, 0x18, 0xF8, 0xE3, 0x8E, 0x78, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0xF0, 0x00, 0x00, 0xF6, 0x1F, 0x60, 0xFD, 0xE7, 0x9F, 0xC0, 0x00, 0x00, 0xFF, 0x8F, 0xF1, 0xFD, 0xC7, 0x1F, 128, 0x00, 0x00, 0x7F, 0x87, 0xF9, 0xDD, 0xC7, 0x1F, 128, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xCF, 0x3F, 0xC0, 0x00, 0x00, 0x87, 0x90, 0x79, 0xDF, 0xCF, 0x3F, 0xE0, 0x00, 0x01, 0xCF, 0x38, 0xF3, 0x8F, 0x8E, 0x39, 0xE0, 0x00, 0x03, 0xFF, 0x7F, 0xF3, 0x8F, 0x8E, 0x39, 0xC0, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0xC0, 0x00, 0x00, 0xF8, 0x1F, 0x87, 0x87, 0x1C, 0x78, 0xC0}, {78, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0xE0, 0x78, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x71, 0xC7, 0x0F, 0x0C, 0x00, 0x01, 0xFF, 0x9F, 0xF9, 0xC1, 0xC7, 0x1C, 0x78, 0xE0, 0x00, 0x0F, 0xBC, 0xF3, 0xC7, 0x8E, 0x38, 0xE3, 0xC7, 128, 0x00, 0x3C, 0x67, 0xC6, 0x3E, 0x38, 0xE3, 0x9E, 0x3C, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0xF0, 0xE0, 0x00, 0x03, 0xD8, 0x7D, 0x83, 0xF7, 0x9E, 0x7F, 0x07, 128, 0x00, 0x0F, 0xF8, 0xFF, 0x1F, 0xDC, 0x71, 0xF8, 0x1C, 0x00, 0x00, 0x1F, 0xE1, 0xFE, 0x77, 0x71, 0xC7, 0xE0, 0x70, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xCF, 0x3F, 0xC3, 0xC0, 0x00, 0x02, 0x1E, 0x41, 0xE7, 0x7F, 0x3C, 0xFF, 0x8F, 0x00, 0x00, 0x1C, 0xF3, 0x8F, 0x38, 0xF8, 0xE3, 0x9E, 0x3C, 0x00, 0x00, 0xFF, 0xDF, 0xFC, 0xE3, 0xE3, 0x8E, 0x7C, 0xF0, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0xF1, 0xC0, 0x00, 0x03, 0xE0, 0x7E, 0x1E, 0x1C, 0x71, 0xE3, 0xE2, 0x00}, {83, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0xC0, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xFC, 0x3F, 0x83, 0x07, 0x1C, 0x70, 0xF0, 0xFC, 0x00, 0x00, 0xFF, 0xCF, 0xFC, 0xE0, 0xE3, 0x8E, 0x3C, 0x7F, 0xC0, 0x00, 0x3E, 0xF3, 0xCF, 0x1E, 0x38, 0xE3, 0x8F, 0x1F, 0xF8, 0x00, 0x07, 0x8C, 0xF8, 0xC7, 0xC7, 0x1C, 0x73, 0xC7, 0x87, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0xF0, 0xE0, 0xE0, 0x00, 0x1E, 0xC3, 0xEC, 0x1F, 0xBC, 0xF3, 0xF8, 0x3C, 0x1C, 0x00, 0x03, 0xFE, 0x3F, 0xC7, 0xF7, 0x1C, 0x7E, 0x07, 0x07, 128, 0x00, 0x3F, 0xC3, 0xFC, 0xEE, 0xE3, 0x8F, 0xC0, 0xE0, 0xF0, 0x00, 0x01, 0xF8, 0x1F, 0x9D, 0xFC, 0xF3, 0xFC, 0x3C, 0x1C, 0x00, 0x01, 0x0F, 0x20, 0xF3, 0xBF, 0x9E, 0x7F, 0xC7, 0x87, 128, 0x00, 0x73, 0xCE, 0x3C, 0xE3, 0xE3, 0x8E, 0x78, 0xF1, 0xF0, 0x00, 0x1F, 0xFB, 0xFF, 0x9C, 0x7C, 0x71, 0xCF, 0x9F, 0xFC, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0xF1, 0xFF, 0x00, 0x00, 0x1F, 0x03, 0xF0, 0xF0, 0xE3, 0x8F, 0x1F, 0x1F, 128}, {93, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0x03, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xFC, 0x3F, 0x83, 0x07, 0x1C, 0x70, 0xF0, 0xFC, 0x1C, 0x00, 0x00, 0x3F, 0xF3, 0xFF, 0x38, 0x38, 0xE3, 0x8F, 0x1F, 0xF1, 0xE0, 0x00, 0x03, 0xEF, 0x3C, 0xF1, 0xE3, 0x8E, 0x38, 0xF1, 0xFF, 0x8E, 0x00, 0x00, 0x1E, 0x33, 0xE3, 0x1F, 0x1C, 0x71, 0xCF, 0x1E, 0x1C, 0x70, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0xF0, 0xE0, 0xE3, 128, 0x00, 0x07, 0xB0, 0xFB, 0x07, 0xEF, 0x3C, 0xFE, 0x0F, 0x07, 0x3C, 0x00, 0x00, 0x3F, 0xE3, 0xFC, 0x7F, 0x71, 0xC7, 0xE0, 0x70, 0x79, 0xC0, 0x00, 0x00, 0xFF, 0x0F, 0xF3, 0xBB, 0x8E, 0x3F, 0x03, 0x83, 0xCE, 0x00, 0x00, 0x01, 0xF8, 0x1F, 0x9D, 0xFC, 0xF3, 0xFC, 0x3C, 0x1C, 0x70, 0x00, 0x00, 0x43, 0xC8, 0x3C, 0xEF, 0xE7, 0x9F, 0xF1, 0xE1, 0xE7, 0x18, 0x00, 0x07, 0x3C, 0xE3, 0xCE, 0x3E, 0x38, 0xE7, 0x8F, 0x1F, 0x39, 0xE0, 0x00, 0x7F, 0xEF, 0xFE, 0x71, 0xF1, 0xC7, 0x3E, 0x7F, 0xF1, 0xFE, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0xF1, 0xFF, 0x1F, 0xE0, 0x00, 0x07, 0xC0, 0xFC, 0x3C, 0x38, 0xE3, 0xC7, 0xC7, 0xE0, 0xFE, 0x00}, {104, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x81, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x71, 0xC7, 0x0F, 0x0F, 0xC1, 0xC0, 0x0F, 0x00, 0x00, 0x7F, 0xE7, 0xFE, 0x70, 0x71, 0xC7, 0x1E, 0x3F, 0xE3, 0xC0, 0x0F, 0x00, 0x00, 0xFB, 0xCF, 0x3C, 0x78, 0xE3, 0x8E, 0x3C, 0x7F, 0xE3, 128, 0x1E, 0x00, 0x00, 0xF1, 0x9F, 0x18, 0xF8, 0xE3, 0x8E, 0x78, 0xF0, 0xE3, 128, 0x3C, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0xF0, 0xE0, 0xE3, 128, 0x3C, 0x00, 0x00, 0xF6, 0x1F, 0x60, 0xFD, 0xE7, 0x9F, 0xC1, 0xE0, 0xE7, 128, 0x78, 0x00, 0x00, 0xFF, 0x8F, 0xF1, 0xFD, 0xC7, 0x1F, 0x81, 0xC1, 0xE7, 0x00, 0x70, 0x00, 0x00, 0x7F, 0x87, 0xF9, 0xDD, 0xC7, 0x1F, 0x81, 0xC1, 0xE7, 0x00, 0xF0, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xCF, 0x3F, 0xC3, 0xC1, 0xC7, 0x00, 0xF0, 0x00, 0x00, 0x87, 0x90, 0x79, 0xDF, 0xCF, 0x3F, 0xE3, 0xC3, 0xCE, 0x31, 0xF0, 0x00, 0x01, 0xCF, 0x38, 0xF3, 0x8F, 0x8E, 0x39, 0xE3, 0xC7, 0xCE, 0x79, 0xE0, 0x00, 0x03, 0xFF, 0x7F, 0xF3, 0x8F, 0x8E, 0x39, 0xF3, 0xFF, 0x8F, 0xF3, 0xC0, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0xF1, 0xFF, 0x1F, 0xE7, 128, 0x00, 0x00, 0xF8, 0x1F, 0x87, 0x87, 0x1C, 0x78, 0xF8, 0xFC, 0x1F, 0xC7, 128}, {114, 42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E, 0x07, 128, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x71, 0xC7, 0x0F, 0x0F, 0xC1, 0xC0, 0x0F, 0x81, 0xC0, 0x00, 0x1F, 0xF9, 0xFF, 0x9C, 0x1C, 0x71, 0xC7, 0x8F, 0xF8, 0xF0, 0x03, 0xF0, 0x70, 0x00, 0x0F, 0xBC, 0xF3, 0xC7, 0x8E, 0x38, 0xE3, 0xC7, 0xFE, 0x38, 0x01, 0xFE, 0x3C, 0x00, 0x03, 0xC6, 0x7C, 0x63, 0xE3, 0x8E, 0x39, 0xE3, 0xC3, 0x8E, 0x00, 0xF7, 0x8E, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0xF0, 0xE0, 0xE3, 128, 0x3C, 0xE3, 128, 0x00, 0x3D, 0x87, 0xD8, 0x3F, 0x79, 0xE7, 0xF0, 0x78, 0x39, 0xE0, 0x1E, 0x38, 0xE0, 0x00, 0x0F, 0xF8, 0xFF, 0x1F, 0xDC, 0x71, 0xF8, 0x1C, 0x1E, 0x70, 0x07, 0x1E, 0x78, 0x00, 0x01, 0xFE, 0x1F, 0xE7, 0x77, 0x1C, 0x7E, 0x07, 0x07, 0x9C, 0x03, 0xCF, 0x1C, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xCF, 0x3F, 0xC3, 0xC1, 0xC7, 0x00, 0xFF, 0xC7, 0x00, 0x00, 0x21, 0xE4, 0x1E, 0x77, 0xF3, 0xCF, 0xF8, 0xF0, 0xF3, 0x8C, 0x7F, 0xF3, 0xC0, 0x00, 0x1C, 0xF3, 0x8F, 0x38, 0xF8, 0xE3, 0x9E, 0x3C, 0x7C, 0xE7, 0x9F, 0xF8, 0xF0, 0x00, 0x0F, 0xFD, 0xFF, 0xCE, 0x3E, 0x38, 0xE7, 0xCF, 0xFE, 0x3F, 0xCF, 0x0E, 0x38, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0xF1, 0xFF, 0x1F, 0xE7, 0x83, 0x8E, 0x00, 0x00, 0x3E, 0x07, 0xE1, 0xE1, 0xC7, 0x1E, 0x3E, 0x3F, 0x07, 0xF1, 0xE1, 0xE3, 128}, {122, 48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 128, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x7E, 0x07, 128, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x71, 0xC7, 0x0F, 0x0F, 0xC1, 0xC0, 0x0F, 0x81, 0xC0, 0x00, 0x00, 0x1F, 0xF9, 0xFF, 0x9C, 0x1C, 0x71, 0xC7, 0x8F, 0xF8, 0xF0, 0x03, 0xF0, 0x70, 0x00, 0x00, 0x0F, 0xBC, 0xF3, 0xC7, 0x8E, 0x38, 0xE3, 0xC7, 0xFE, 0x38, 0x01, 0xFE, 0x3C, 0x00, 0x00, 0x03, 0xC6, 0x7C, 0x63, 0xE3, 0x8E, 0x39, 0xE3, 0xC3, 0x8E, 0x00, 0xF7, 0x8E, 0x00, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0xF0, 0xE0, 0xE3, 128, 0x3C, 0xE3, 128, 0x00, 0x00, 0x3D, 0x87, 0xD8, 0x3F, 0x79, 0xE7, 0xF0, 0x78, 0x39, 0xE0, 0x1E, 0x38, 0xE0, 0x00, 0x00, 0x0F, 0xF8, 0xFF, 0x1F, 0xDC, 0x71, 0xF8, 0x1C, 0x1E, 0x70, 0x07, 0x1E, 0x78, 0x00, 0x00, 0x01, 0xFE, 0x1F, 0xE7, 0x77, 0x1C, 0x7E, 0x07, 0x07, 0x9C, 0x03, 0xCF, 0x1C, 0x00, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xCF, 0x3F, 0xC3, 0xC1, 0xC7, 0x00, 0xFF, 0xC7, 0x00, 0x00, 0x00, 0x21, 0xE4, 0x1E, 0x77, 0xF3, 0xCF, 0xF8, 0xF0, 0xF3, 0x8C, 0x7F, 0xF3, 0xC0, 0x00, 0x00, 0x1C, 0xF3, 0x8F, 0x38, 0xF8, 0xE3, 0x9E, 0x3C, 0x7C, 0xE7, 0x9F, 0xF8, 0xF0, 0x00, 0x00, 0x0F, 0xFD, 0xFF, 0xCE, 0x3E, 0x38, 0xE7, 0xCF, 0xFE, 0x3F, 0xCF, 0x0E, 0x38, 0x00, 0x00, 0x03, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0xF1, 0xFF, 0x1F, 0xE7, 0x83, 0x8E, 0x00, 0x00, 0x00, 0x3E, 0x07, 0xE1, 0xE1, 0xC7, 0x1E, 0x3E, 0x3F, 0x07, 0xF1, 0xE1, 0xE3, 128, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 128, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}, {122, 48, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFE, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 128, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x00, 0x00, 0x7E, 0x07, 128, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x00, 0x0C, 0x00, 0x00, 0x3F, 0xC3, 0xF8, 0x30, 0x71, 0xC7, 0x0F, 0x0F, 0xC1, 0xC0, 0x0F, 0x81, 0xC3, 0x00, 0x00, 0x1F, 0xF9, 0xFF, 0x9C, 0x1C, 0x71, 0xC7, 0x8F, 0xF8, 0xF0, 0x03, 0xF0, 0x70, 0xC0, 0x00, 0x0F, 0xBC, 0xF3, 0xC7, 0x8E, 0x38, 0xE3, 0xC7, 0xFE, 0x38, 0x01, 0xFE, 0x3C, 0x20, 0x00, 0x03, 0xC6, 0x7C, 0x63, 0xE3, 0x8E, 0x39, 0xE3, 0xC3, 0x8E, 0x00, 0xF7, 0x8E, 0x08, 0x00, 0x00, 0xE0, 0x1E, 0x00, 0xF8, 0xE3, 0x8E, 0xF0, 0xE0, 0xE3, 128, 0x3C, 0xE3, 128, 0x00, 0x00, 0x3D, 0x87, 0xD8, 0x3F, 0x79, 0xE7, 0xF0, 0x78, 0x39, 0xE0, 0x1E, 0x38, 0xE0, 0x00, 0x00, 0x0F, 0xF8, 0xFF, 0x1F, 0xDC, 0x71, 0xF8, 0x1C, 0x1E, 0x70, 0x07, 0x1E, 0x78, 0x00, 0x00, 0x01, 0xFE, 0x1F, 0xE7, 0x77, 0x1C, 0x7E, 0x07, 0x07, 0x9C, 0x03, 0xCF, 0x1C, 0x00, 0x00, 0x00, 0x1F, 0x81, 0xF9, 0xDF, 0xCF, 0x3F, 0xC3, 0xC1, 0xC7, 0x00, 0xFF, 0xC7, 0x00, 0x00, 0x00, 0x21, 0xE4, 0x1E, 0x77, 0xF3, 0xCF, 0xF8, 0xF0, 0xF3, 0x8C, 0x7F, 0xF3, 0xC0, 0x00, 0x00, 0x1C, 0xF3, 0x8F, 0x38, 0xF8, 0xE3, 0x9E, 0x3C, 0x7C, 0xE7, 0x9F, 0xF8, 0xF0, 0x00, 0x00, 0x8F, 0xFD, 0xFF, 0xCE, 0x3E, 0x38, 0xE7, 0xCF, 0xFE, 0x3F, 0xCF, 0x0E, 0x38, 0x00, 0x00, 0x23, 0xFE, 0x7F, 0xE3, 0x87, 0x1E, 0x78, 0xF1, 0xFF, 0x1F, 0xE7, 0x83, 0x8E, 0x00, 0x00, 0x18, 0x3E, 0x07, 0xE1, 0xE1, 0xC7, 0x1E, 0x3E, 0x3F, 0x07, 0xF1, 0xE1, 0xE3, 128, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 128, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 128, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } }
+const uint8 EditableMods	[]	= {
+	1,	// -  0
+	1,	// -  1
+	1,	// -  2
+	1,	// -  3
+	1,	// -  4
+	1,	// -  5
+	1,	// -  6
+	0,	// -  7
+	1,	// -  8
+	1,	// -  9
+	0,	// - 10
+	1,	// - 11
+	0,	// - 12
+	0,	// - 13
+	0,	// - 14
+	0,	// - 15
+	0,	// - 16
+	1,	// - 17
+	1,	// - 18
+	1,	// - 19
+	1,	// - 20
+	0,	// - 21
+	1,	// - 22
+	0,	// - 23
+	1,	// - 24
+	0,	// - 25
+	1,	// - 26
+	1,	// - 27
+	0,	// - 28
+	0,	// - 29
+	0,	// - 30
+	0,	// - 31
+	0,	// - 32
+	0   // - 33
+};
+const uint8 Layouts			[][]	= {
+     //Fire    Ads_BTN    Lethal Tactical     Jump        Crouch       Melee        Sprint  Reload      Weapon Swap     
+    { PS4_R2, PS4_L2, PS4_R1, PS4_L1, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // DEFAULT = 0
+    { PS4_R2, PS4_L2, PS4_R1, PS4_L1, 	  PS4_CROSS,  PS4_R3, 	   PS4_CIRCLE,  PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // Tactical_BTN = 1
+    { PS4_L2, PS4_R2, PS4_L1, PS4_R1, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_L3, 		PS4_R3 ,PS4_SQUARE, PS4_TRIANGLE }, // LEFTY = 2
+    { PS4_R2, PS4_R1, PS4_L2, PS4_L1, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // N0M4D/CHARLIE = 3
+    { PS4_R2, PS4_R1, PS4_L2, PS4_L1, 	  PS4_CROSS,  PS4_R3, 	   PS4_CIRCLE,  PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // N0M4D/CHARLIE Tactical_BTN = 4
+    { PS4_L2, PS4_L1, PS4_R2, PS4_R1, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_L3, 		PS4_R3 ,PS4_SQUARE, PS4_TRIANGLE }, // N0M4D/CHARLIE LEFTY = 5
+    { PS4_R2, PS4_L2, PS4_R1, PS4_CROSS,  PS4_L1, 	  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BUMPER JUMPER = 6 
+    { PS4_R2, PS4_L2, PS4_R1, PS4_CROSS,  PS4_L1, 	  PS4_R3, 	   PS4_CIRCLE,  PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BUMPER JUMPER Tactical_BTN = 7
+    { PS4_L1, PS4_L2, PS4_R2, PS4_R1, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // ONE-HAND GUNSLINGER = 8
+    { PS4_R2, PS4_L2, PS4_R1, PS4_L1, 	  PS4_R3, 	  PS4_CIRCLE,  PS4_CROSS,   PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // STICK AND MOVE = 9
+    { PS4_R2, PS4_L2, PS4_R1, PS4_L1, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BRAWLER = 10
+    { PS4_R2, PS4_L2, PS4_R3, PS4_CROSS,  PS4_L1, 	  PS4_CIRCLE,  PS4_R1, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BEASTY = 11
+    { PS4_R2, PS4_L2, PS4_R1, PS4_R1, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BUMPER Ping_BTN = 12
+    { PS4_R2, PS4_L2, PS4_R1, PS4_R1, 	  PS4_CROSS,  PS4_R3, 	   PS4_CIRCLE,  PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BUMPER Ping_BTN Tactical_BTN = 13
+    { PS4_R1, PS4_L1, PS4_R2, PS4_L2, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // DEFAULT SWAPPED = 14
+    { PS4_R1, PS4_L1, PS4_R2, PS4_L2, 	  PS4_CROSS,  PS4_R3,	   PS4_CIRCLE,  PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // Tactical_BTN SWAPPED = 15
+    { PS4_R1, PS4_L1, PS4_R2, PS4_CROSS,  PS4_L2, 	  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BUMPER JUMPER SWAPPED = 16 
+    { PS4_R1, PS4_L1, PS4_R2, PS4_CROSS,  PS4_L2, 	  PS4_R3,	   PS4_CIRCLE,  PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BUMPER JUMPER Tactical_BTN SWAPPED = 17 
+    { PS4_R1, PS4_L1, PS4_R2, PS4_L2, 	  PS4_R3, 	  PS4_CIRCLE,  PS4_CROSS,   PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // STICK AND MOVE SWAPPED = 18
+    { PS4_R1, PS4_L1, PS4_R3, PS4_CROSS,  PS4_L1, 	  PS4_CIRCLE,  PS4_R1, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BEASTY SWAPPED 19
+    { PS4_R1, PS4_L1, PS4_R2, PS4_R2, 	  PS4_CROSS,  PS4_CIRCLE,  PS4_R3, 		PS4_L3, PS4_SQUARE, PS4_TRIANGLE }, // BUMPER Ping_BTN = 20
+    { PS4_R1, PS4_L1, PS4_R2, PS4_R2, 	  PS4_CROSS,  PS4_R3,	   PS4_CIRCLE,  PS4_L3, PS4_SQUARE, PS4_TRIANGLE }  // BUMPER Ping_BTN Tactical_BTN = 21																																																												// This Script Was Made By SS_Nikolai
+};
+const uint8  StickLayouts	[][]	= {
+	// AimY    AimX    Walk   Strafe
+	{ PS4_RY, PS4_RX, PS4_LY, PS4_LX }, // Default Sticks
+	{ PS4_LY, PS4_LX, PS4_RY, PS4_RX }, // South Paw
+	{ PS4_RY, PS4_LX, PS4_LY, PS4_RX }, // Legacy
+	{ PS4_LY, PS4_RX, PS4_LY, PS4_LX }  // Legacy South Paw
+};
+
+//--Leave Alone
+    int StrafeDelay;
+	int AR_Strength;
+	int AdsSens;
+	int AdsFireSens;
+	int FireSens;
+	int TaylorRadius;
+	int TaylorAngle;
+	int TrackingSpeed;
+	int TrackingSize;
+	int ADSOnlyStrength;
+	int ADSFireStrength;
+	int FireOnlyStrength;
+	int ADSOnlySpeed;
+	int ADSFireSpeed;
+	int FireOnlySpeed;
+	int DropShotSpeed;
+	int burstHold;
+	int burstRest;
+	int QS_Delay;
+	int AutoRunDelay;
+	int StrafeAssistRadius;
+	int StrafeAssistSpeed;
+	int HeadShotStrength;
+	int HeadShotHoldTime;
+	int VerticalRecoilStr;
+	int HorizontalRecoilStr;
+	int RapidHold;
+	int RapidRest;
+	int RapidBurstHold;
+	int RapidBurstRest;
+	int AutoPingDelay;
+	int VerticalStart;
+	int VerticalEnd;
+	int VerticalTime;
+	int HorizontalStart;
+	int HorizontalEnd;
+	int HorizontalTime;
+	int Strength;
+	int SteadyAimResolution;
+
+//--Variable Just Leave Alone
+	int RY;
+	int MS;
+	int ReT;
+	int X, Y;
+	int AxisY;
+	int Frame;
+	int GenStr;
+	int logVal;
+	int Keep[3];
+	int newHold;
+	int newRest;
+	int Running;
+	int Inverted;
+	int DeadZone;
+	int CurrentRX;
+	int CurrentRY;
+	int RunRumble;
+	int driveMode;
+	int Sprinting;
+	int Fire_Rate;
+	int DoubleTap;
+	int AxisT, AAT;
+	int RumbleSide;
+	int RumbleTime;
+	int AutoRun_KS;
+	int aimAngle, I;
+	int aR_Strength;
+	int StrafeAngle;
+	int StrafeIndex;
+	int SpiralAngle;
+	int StrafeRandom;
+	int CycleRefresh;
+	int Trigger_Toggle;
+	int ShapeDirection;
+	int DynamicTracking;
+	int DropShotVariable;
+	int doubleStrengthTime;
+	int RandomizedStrafeOne;
+	int RandomizedStrafeTwo;
+	int anglePosition, Timer;
+	int DoGzAimActivationType;
+	int StickyValue, WaitValue;
+	int CharIndex1, DigitIndex1;
+	int StickyAimActivationType;
+	int TaylorAimActivationType;
+	int AntiRecoilActivationType;
+	int SnakeShotActivationType_;
+	int antiRecoilX, antiRecoilY;
+	int AimY, AimX, Walk, Strafe;
+	int StrafeAssistActivationType;
+	int SmartRumble, AntiRecoilStrength;
+	int RightStickRadius, LeftStickRadius;
+	int antiRecoilStateX, antiRecoilStateY;
+	int antiRecoilCounterX, antiRecoilCounterY;
+	int TrackingAngle, TrackingAngleOne, TrackingAngleTwo;
+	int stickThresholdLow, stickThresholdHigh, stickValue;
+	int SpiralPositionOne, InnerSpiral, OuterSpiral, SpiralPositionTwo, Position;
+	int Ads_BTN, Fire_BTN, Lethal_BTN, Tactical_BTN, Jump_BTN, Crouch_BTN, Melee_BTN, Sprint_BTN, Reload_BTN, Swap_BTN;
+	int X1 = 60, X2 = 68, X3 = 76, X4 = 84, X5 = 92, X6 = 100, X7 = 108, X8 = 116, X9 = 124, X10 = 132, X11 = 140, X12 = 148, X13 = 156, X14 = 164, X15 = 172, X16 = 180, X17 = 188, X18 = 196, X19 = 204, X20 = 212, X21 = 220, X22 = 228, X23 = 236, X24 = 244, X25 = 252, X26 = 260, X27 = 268, X28 = 276;																																																												// This Script Was Made By SS_Nikolai
+	int Increase					= 1, Decrease, Colour[3];	// Do Not Change
+	int Pin							=	101;
+	int Color 						=     1;
+	int ShapeDirectionToggle		=  TRUE;
+	enum { TimeSprint, TimeRest }
+	enum { Circular = 1, Diamond = 2 }
+	enum { MenuClose, MainMods, EditMods }
+	enum { DoubleTapQS = 1, QSOnRelease = 2 }
+	enum { HoldOneMelee = 1, HoldTwoMelee = 2 }
+	enum { FireSS = 1, AdsSS = 2, AdsOrFireSS = 3 }
+	enum { Single_AA = 1, Double_AA = 2, Triple_AA = 3, Quad_AA = 4 }
+	enum { ScriptAutoRun = 1, BetterAutoSprint_ = 2, MW2InfiniteRun = 3 }
+	enum { AdsPing = 1, FirePing = 2, AdsFirePing = 3, AdsTacticalPing = 4 }
+	enum { HoldSingleTap = 1, HoldDoubleTap = 2, DoubleTapKS = 3, HoldButton = 4 }
+	enum { OriginalTracking = 1, DynamicSmallTracking = 2, DynamicBigTracking = 3 }
+	enum { TaylorRumbleV1_ = 1, TaylorLegacyV1_ = 2, EviLRumble_ = 3, EviLDynamic_ = 4, SwedemafiaProgressive_ = 5 }																																																																					// This Script Was Made By SS_Nikolai
+	enum { MWVGLegacy_ = 1, MWVGRumble_ = 2, CWLegacy_ = 3, CWRumble_ = 4, BF2042_ = 5, MW2Standard_ = 6, MW2Tactical_ = 7, MW2Lethal_ = 8 }																																																																												// This Script Was Made By SS_Nikolai
+	enum { CircleAA = 1, TallOvalAA = 2, WideOvalAA = 3, SpiralAA = 4, HelixAA = 5, KITTAA = 6, TartanArmyAA = 7, AtomicAA = 8, InfinityAA = 9, TriangleAA = 10, ArchSpiral = 11 }
+
+//TOGGLES - START
+int AntiRecoilType;
+int TaylorShape;
+int TaylorTracking;
+int StickyAimToggle;
+int DoGzTimedAimAssist;
+int SteadyAimToggle;
+int AimAbuseToggle;
+int SpeedStrafeToggle;
+int AimCorrectionsToggle;
+int SlideCancelMode;
+int RapidFireToggle;
+int AkimboRapidFireToggle;
+int BurstFireToggle;
+int DynamicRapidFireToggle;
+int JumpShotToggle;
+int ScopeShotToggle;
+int QuickScopeMode;
+int StrafeToggle;
+int StandardDropShotToggle;
+int SS_NikolaiDropShotToggle;
+int HoldBreathToggle;
+int AutoPingMode;
+int BunnyHopToggle;
+int AutoRunMode;
+int FastMeleeMode;
+int PerfectAccuracyToggle; // L2/LT + R1/RB
+int HeadShotAssistToggle;
+int RumbleBlockToggle;
+int DolphinCancelToggle;
+int MW2GWalkToggle;
+int JumpPeakToggle;
+int SnakeToggle;
+//TOGGLES - END
+
+//--Menu Stuff ( Leave Alone )	
+	define NumOfMods	=   32;
+	int    Mod			=    2;
+	int    Scroll		=    1;
+	int    Tab			=    0;
+	int    screenSaver	= TRUE;
+	int    OLEDDisplay	= TRUE;
+	int    ZenScreen;
+	int    KillSwitch;
+	int    SS_NikolaiCountDown;
+
+//--Mods
+const string ModsString[]	= {
+	"Hold L2 + OPTIONS",	// 0
+	"Anti Recoil",			// 1 -
+	"Taylor Polar",			// 2
+	"Taylor Tracking",		// 3
+	"Sticky Aim Assist",	// 4
+	"DoGz Timed Aim",		// 5
+	"Evil Steady Aim",		// 6
+	"Aim Abuse",			// 7
+	"Strafe Assist",		// 8
+	"Custom Sensitvity",	// 9
+	"Slide Cancel",			// 10
+	"Rapid Fire",			// 11
+	"Akimbo Rapid Fire",	// 12
+	"Burst Rapid Fire",		// 13
+	"Dynamic Rapid Fire",	// 14
+	"Jump Shot",			// 15
+	"Scope Shot",			// 16
+	"Quick Scope",			// 17
+	"Strafe",				// 18
+	"Standard Dropshot",	// 19
+	"Niko's Dropshot",		// 20
+	"Snipers Breath",		// 21
+	"Auto Ping",			// 22
+	"Bunny Hop",			// 23
+	"Auto Run",				// 24
+	"Fast Melee",			// 25
+	"Perfect Accuracy",		// 26
+	"Head Shot Assist",		// 27
+	"Rumble Block",			// 28
+	"MW2 G Walk",			// 29
+	"Dolphin Cancel",		// 30
+	"Jump Peak",			// 31
+	"Snake Mode",			// 32
+	"Kill Switch",			// 33 --
+	"Drive Mode"			// 34 --
+};
+
+//--Taylor Shapes
+const string AimPatterns[]		= { "< Select Shape >","Circle", "Tall Oval"  , "Wide Oval", "Spiral"  , "Helix"   ,
+														"KITT" , "Tartan Army", "Atomic"   , "Infinity", "Triangle", "Archimedean Spiral", "" };																																																																						// This Script Was Made By SS_Nikolai
+
+//--Taylor Tracking Types
+const string Original			= "Original";
+const string DynamicSmall		= "Dynamic Small";
+const string DynamicBig			= "Dynamic Big";
+
+//--Anti Recoil Activation
+const string AdsAndFireAR		= "Ads & Fire";
+const string FireOnlyAR			= "Fire Only";
+const string AdsAndFireOrFireAR	= "Ads & Fire Or Fire";
+
+//--Aim Assist Activation
+const string AdsOrFireAA		= "Ads Or Fire";
+const string AdsFireAA			= "Ads & Fire";
+const string FireOnlyAA			= "Fire Only";
+const string AdsOnlyAA			= "Ads Only";
+const string AdsFireOrFire		= "Ads & Fire Or Fire";
+
+//--Sticky Aim Types
+const string SingleAA			= "Single Sticky";
+const string DoubleAA			= "Double Sticky";
+const string TripleAA			= "Triple Sticky";
+const string QuadAA				= "Quad Sticky";
+
+//--Anti Recoil Types
+const string DisabledOff		= "Disabled";
+const string Disabled			= "Choose Type";
+const string RumbleV1Recoil		= "Rumble V1";
+const string LegacyV1Recoil		= "Legacy V1";
+const string EviLRumbleAR		= "EviL Rumble";
+const string EviLDynamicAR		= "EviL Dynamic";
+const string ProgressiveAR		= "Progressive";
+
+//--Strafe Assist Shapes
+const string ModIsOFF			= "Disabled";
+const string CircularStrA		= "Circular";
+const string DiamondStrA		= "Diamond";
+
+//--Slide Cancel Types
+const string MWStandard			= "MW / VG Standard";
+const string MWRumble			= "MW / VG Rumble";
+const string CWStandard			= "CW Standard";
+const string CWRumble			= "CW Rumble";
+const string BFStandard			= "BF2042 Standard";
+const string MW2Standard		= "MW2 Standard";
+const string MW2Tactical		= "MW2 Tactical";
+const string MW2Lethal			= "MW2 Lethal";
+
+//--Auto Ping Types
+const string AdsAutoPing		= "ADS Only";
+const string FireAutoPing		= "Fire Only"; 
+const string AdsFireAutoPing	= "ADS + Fire";
+const string AdsTacAutoPing		= "ADS + Tactical";
+
+//--Scope Shot Types
+const string RightTrigScopeShot	= "Right Trigger";
+const string LeftTrigScopeShot	= "Left Trigger";
+const string BothTrigScopeShot	= "Both Trigger";
+
+//--Fast Melee Types
+const string AutoMaticFastMelee	= "Automatic";
+const string ManualFastMelee	= "Manual";
+
+//--Quickscope Types
+const string AimFireQS			= "Release ADS";
+const string DblTapQS			= "Double Tap";
+
+//--Auto Sprint Types
+const string ScriptAutoSprint	= "Script Auto Run";
+const string BetterAutoSprint	= "Better Auto Sprint";
+const string MW2TacSprint		= "Infinite TacSprint";																																																																																																		// This Script Was Made By SS_Nikolai
+
+function SS_NikolaiTextOne() {
+	putc_oled(1, ASCII_UPPER_F);
+	puts_oled(X1, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_P);
+	puts_oled(X2, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_S);
+	puts_oled(X3, 2, 0, 1, 1);
+	putc_oled(1, ASCII_SPACE);
+	puts_oled(X4, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_S);
+	puts_oled(X5, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_C);
+	puts_oled(X6, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_R);
+	puts_oled(X7, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_I);
+	puts_oled(X8, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_P);
+	puts_oled(X9, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_T);
+	puts_oled(X10, 2, 0, 1, 1);
+	putc_oled(1, ASCII_SPACE);
+	puts_oled(X11, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_B);
+	puts_oled(X12, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_Y);
+	puts_oled(X13, 2, 0, 1, 1);
+	putc_oled(1, ASCII_SPACE);
+	puts_oled(X14, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_S);
+	puts_oled(X15, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_S);
+	puts_oled(X16, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UNDERSCORE);
+	puts_oled(X17, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_N);
+	puts_oled(X18, 2, 0, 1, 1);
+	putc_oled(1, ASCII_LOWER_I);
+	puts_oled(X19, 2, 0, 1, 1);
+	putc_oled(1, ASCII_LOWER_K);
+	puts_oled(X20, 2, 0, 1, 1);
+	putc_oled(1, ASCII_LOWER_O);
+	puts_oled(X21, 2, 0, 1, 1);
+	putc_oled(1, ASCII_LOWER_L);
+	puts_oled(X22, 2, 0, 1, 1);
+	putc_oled(1, ASCII_LOWER_A);
+	puts_oled(X23, 2, 0, 1, 1);
+	putc_oled(1, ASCII_LOWER_I);
+	puts_oled(X24, 2, 0, 1, 1);
+
+	SS_NikolaiCharacterFall();
+}
+
+function SS_NikolaiTextTwo() {
+	putc_oled(1, ASCII_UPPER_P);
+	puts_oled(X1, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_R);
+	puts_oled(X2, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_E);
+	puts_oled(X3, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_S);
+	puts_oled(X4, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_S);
+	puts_oled(X5, 2, 0, 1, 1);
+	putc_oled(1, ASCII_SPACE);
+	puts_oled(X6, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_X);
+	puts_oled(X7, 2, 0, 1, 1);
+	putc_oled(1, ASCII_SPACE);
+	puts_oled(X8, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_T);
+	puts_oled(X9, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_O);
+	puts_oled(X10, 2, 0, 1, 1);
+	putc_oled(1, ASCII_SPACE);
+	puts_oled(X11, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_T);
+	puts_oled(X12, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_O);
+	puts_oled(X13, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_G);
+	puts_oled(X14, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_G);
+	puts_oled(X15, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_L);
+	puts_oled(X16, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_E);
+	puts_oled(X17, 2, 0, 1, 1);
+
+	putc_oled(1, ASCII_SPACE);
+	puts_oled(X18, 2, 0, 1, 1);
+
+	putc_oled(1, ASCII_UPPER_T);
+	puts_oled(X20, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_O);
+	puts_oled(X21, 2, 0, 1, 1);
+
+	putc_oled(1, ASCII_SPACE);
+	puts_oled(X22, 2, 0, 1, 1);
+
+	putc_oled(1, ASCII_UPPER_E);
+	puts_oled(X23, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_D);
+	puts_oled(X24, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_I);
+	puts_oled(X25, 2, 0, 1, 1);
+	putc_oled(1, ASCII_UPPER_T);
+	puts_oled(X26, 2, 0, 1, 1);
+
+	rect_oled(X19 - 4, 2,  9, 9, 0,    1);
+	rect_oled(X19 - 3, 2 + 1, 7, 7, 0, 0);
+	rect_oled(X19 + 5, 2,  1, 9, 1,    0);
+
+	SS_NikolaiCharacterFall();
+}
+
+function SS_NikolaiCharacterFall() {
+	X1--;X2--;X3--;X4--;X5--;X6--;X7--;X8--;X9--;X10--;
+	X11--;X12--;X13--;X14--;X15--;X16--;X17--;X18--;X19--;X20--;																																																												// This Script Was Made By SS_Nikolai
+	X21--;X22--;X23--;X24--;X25--;X26--;X27--;X28--;
+}
+
+function SS_NikolaiScreenSaver() {
+	line_oled(0, 13, 127, 13, 1, 1);
+	rect_oled(0,  0,  15, 14, 1, 0);
+	rect_oled(0,  0,  15, 14, 0, 1);
+
+	if(SS_NikolaiCountDown < 1000)
+	{
+    	putc_oled(1, ASCII_DIGIT9);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+
+	if(SS_NikolaiCountDown > 1000)
+	{
+    	putc_oled(1, ASCII_DIGIT8);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+
+	if(SS_NikolaiCountDown > 2000)
+	{
+    	putc_oled(1, ASCII_DIGIT7);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+
+	if(SS_NikolaiCountDown > 3000)
+	{
+    	putc_oled(1, ASCII_DIGIT6);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+
+	if(SS_NikolaiCountDown > 4000)
+	{
+    	putc_oled(1, ASCII_DIGIT5);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+
+	if(SS_NikolaiCountDown > 5000)
+	{
+    	putc_oled(1, ASCII_DIGIT4);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+
+	if(SS_NikolaiCountDown > 6000)
+	{
+    	putc_oled(1, ASCII_DIGIT3);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+
+	if(SS_NikolaiCountDown > 7000)
+	{
+    	putc_oled(1, ASCII_DIGIT2);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+
+	if(SS_NikolaiCountDown >= 8000)
+	{
+    	putc_oled(1, ASCII_DIGIT1);
+		puts_oled(4, 3, 0, 1, 1);
+	}
+}
+/*-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+ | | | | | | | | | | | | | | | E | N | D | | | | | | | | | |S | S| _ | N | i | k | o | l | a | i| |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-*/
