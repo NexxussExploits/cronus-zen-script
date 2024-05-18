@@ -1,4 +1,4 @@
-**Disclaimer:**
+## **Disclaimer:**
 
 This script is intended for educational and entertainment purposes only. The creator does not condone, support, or endorse cheating in any form. The use of this script in online gaming environments to gain an unfair advantage over other players is strictly prohibited and may result in penalties such as bans or suspensions from gaming platforms.
 
